@@ -11,6 +11,7 @@ using ZennoLab.CommandCenter;
 using ZennoLab.Emulation;
 using ZennoLab.InterfacesLibrary.ProjectModel;
 using ZennoLab.InterfacesLibrary.ProjectModel.Enums;
+using ZpSolutionWbBuyoutsParser.Models.Json;
 
 namespace ZpSolutionWbBuyoutsParser
 {
@@ -27,6 +28,8 @@ namespace ZpSolutionWbBuyoutsParser
         /// <returns>Код выполнения скрипта</returns>
         public int Execute(Instance instance, IZennoPosterProjectModel project)
         {
+            ProjectConfig.Initialize(project);
+            AccountsStore.Instance.SkipOrFillSessionList();
             int executionResult = 0;
 
             return executionResult;

@@ -7,28 +7,28 @@ using ZpSolutionWbBuyoutsParser.Models.Json;
 
 namespace ZpSolutionWbBuyoutsParser
 {
-    internal class AccountsListLoader
+    internal class AccountsStore
     {
         private const string _fileNameSessionList = "sessions.json";
         private readonly WorkSettings _workSettings;
         private readonly ProjectSettingsModel _projectSettings;
 
-        private static AccountsListLoader _instance;
+        private static AccountsStore _instance;
         private readonly object  _lock = new object();
 
-        private AccountsListLoader()
+        private AccountsStore()
         {
             _workSettings = new WorkSettings();
             _projectSettings = _workSettings.GetSettings();
         }
 
-        public static AccountsListLoader Instance
+        public static AccountsStore Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    _instance = new AccountsListLoader();
+                    _instance = new AccountsStore();
                 }
                 return _instance;
             }
@@ -41,10 +41,17 @@ namespace ZpSolutionWbBuyoutsParser
                 DateTime lastWorkDate = _projectSettings.LastWorkDate;
                 if(lastWorkDate.Date != DateTime.Now.Date)
                 {
-                    _projectSettings.LastWorkDate = DateTime.Now;
-                    _workSettings.UpdateSettings(_projectSettings);
+
                 }
             }
+        }
+
+
+
+        private void UpdateWorkDate()
+        {
+            _projectSettings.LastWorkDate = DateTime.Now;
+            _workSettings.UpdateSettings(_projectSettings);
         }
     }
 }

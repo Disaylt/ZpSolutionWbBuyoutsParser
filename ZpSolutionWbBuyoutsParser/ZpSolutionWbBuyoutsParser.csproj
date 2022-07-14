@@ -80,7 +80,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountsListLoader.cs" />
+    <Compile Include="AccountsStore.cs" />
     <Compile Include="WorkSettings.cs" />
     <Compile Include="JsonFile.cs" />
     <Compile Include="Models\Json\ProjectSettingsModel.cs" />
