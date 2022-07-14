@@ -80,6 +80,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProjectSettings.cs" />
     <Compile Include="JsonLoader.cs" />
     <Compile Include="Models\Json\ProjectSettingsModel.cs" />
     <Compile Include="Program.cs" />

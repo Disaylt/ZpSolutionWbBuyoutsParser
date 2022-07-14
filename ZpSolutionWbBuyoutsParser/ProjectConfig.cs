@@ -10,24 +10,29 @@ namespace ZpSolutionWbBuyoutsParser
 {
     internal class ProjectConfig
     {
+        public string ProjectPath { get; private set; }
+
         private ProjectSettingsModel _projectSettings;
         private static ProjectConfig _projectConfig;
-        private string _projectPath { get; set; }
+        private static object _lock = new object();
         private ProjectConfig() { }
         private ProjectConfig(string projectPath)
         {
-            _projectPath = projectPath;
+            ProjectPath = projectPath;
         }
 
-        public void Initialize(IZennoPosterProjectModel project)
+        public static void Initialize(IZennoPosterProjectModel project)
         {
-            if(_projectConfig == null)
+            lock (_lock)
             {
-                _projectConfig = new ProjectConfig(project.Path);
+                if (_projectConfig == null)
+                {
+                    _projectConfig = new ProjectConfig(project.Path);
+                }
             }
         }
 
-        public ProjectConfig GetInstance()
+        public static ProjectConfig GetInstance()
         {
             if(_projectConfig != null)
             {
@@ -37,16 +42,6 @@ namespace ZpSolutionWbBuyoutsParser
             {
                 throw new NullReferenceException("ProjectConfig is not loaded");
             }
-        }
-
-        public ProjectSettingsModel GetProjectSettings()
-        {
-            if( _projectSettings == null)
-            {
-                string fileName = "projectSettings.json";
-                _projectSettings = JsonLoader.LoadJson<ProjectSettingsModel>($@"{_projectPath}{fileName}");
-            }
-            return _projectSettings;
         }
     }
 }
