@@ -8,13 +8,13 @@ using Global.ZennoLab.Json;
 
 namespace ZpSolutionWbBuyoutsParser
 {
-    internal class ProjectSettings
+    internal class WorkSettings
     {
         private static ProjectSettingsModel _projectSettings;
         private static ProjectConfig _projectConfig;
         private static readonly object _lock = new object();
         private const string _fileName = "ProjectSettings.json";
-        public ProjectSettings()
+        public WorkSettings()
         {
             _projectConfig = ProjectConfig.GetInstance();
         }

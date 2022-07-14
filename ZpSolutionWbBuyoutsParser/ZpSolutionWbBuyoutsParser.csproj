@@ -81,7 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountsListLoader.cs" />
-    <Compile Include="ProjectSettings.cs" />
+    <Compile Include="WorkSettings.cs" />
     <Compile Include="JsonFile.cs" />
     <Compile Include="Models\Json\ProjectSettingsModel.cs" />
     <Compile Include="Program.cs" />
