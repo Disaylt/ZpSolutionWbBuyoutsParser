@@ -9,8 +9,8 @@ namespace ZpSolutionWbBuyoutsParser.Models.Json
     internal class ProjectSettingsModel
     {
         public DateTime LastWorkDate { get; set; }
-        public int AmountOfDaysForParsing { get; set; } = 7;
-        public bool UseDaysFilter { get; set; } = true;
+        public int NumberDaysForCollectionOfSessions { get; set; } = 7;
+        public bool IsParseAllAccounts { get; set; } = false;
 
     }
 }
