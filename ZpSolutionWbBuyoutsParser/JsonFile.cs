@@ -1,4 +1,5 @@
 ﻿using Global.ZennoLab.Json.Linq;
+using Global.ZennoLab.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ZpSolutionWbBuyoutsParser
 {
-    internal class JsonLoader
+    internal class JsonFile
     {
-        internal static T LoadJson<T>(string filePath)
+        internal static T Load<T>(string filePath)
         {
             try
             {
@@ -22,6 +23,12 @@ namespace ZpSolutionWbBuyoutsParser
             {
                 return default;
             }
+        }
+
+        internal static void Save<T>(string filePath, T jsonObject)
+        {
+            string jsonContent = JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
+            File.WriteAllText(filePath, jsonContent);
         }
     }
 }
