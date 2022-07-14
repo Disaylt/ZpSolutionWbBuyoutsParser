@@ -11,10 +11,8 @@ namespace ZpSolutionWbBuyoutsParser
     internal class ProjectConfig
     {
         public string ProjectPath { get; private set; }
-
-        private ProjectSettingsModel _projectSettings;
         private static ProjectConfig _projectConfig;
-        private static object _lock = new object();
+        private static readonly object _lock = new object();
         private ProjectConfig() { }
         private ProjectConfig(string projectPath)
         {
