@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZennoLab.InterfacesLibrary.ProjectModel;
+using ZpSolutionWbBuyoutsParser.Models.Json;
 
 namespace ZpSolutionWbBuyoutsParser
 {
     internal class ProjectConfig
     {
+        private ProjectSettingsModel _projectSettings;
         private static ProjectConfig _projectConfig;
         private string _projectPath { get; set; }
         private ProjectConfig() { }
@@ -21,7 +23,7 @@ namespace ZpSolutionWbBuyoutsParser
         {
             if(_projectConfig == null)
             {
-                _projectConfig = new ProjectConfig(project.Directory);
+                _projectConfig = new ProjectConfig(project.Path);
             }
         }
 
@@ -35,6 +37,16 @@ namespace ZpSolutionWbBuyoutsParser
             {
                 throw new NullReferenceException("ProjectConfig is not loaded");
             }
+        }
+
+        public ProjectSettingsModel GetProjectSettings()
+        {
+            if( _projectSettings == null)
+            {
+                string fileName = "projectSettings.json";
+                _projectSettings = JsonLoader.LoadJson<ProjectSettingsModel>($@"{_projectPath}{fileName}");
+            }
+            return _projectSettings;
         }
     }
 }
