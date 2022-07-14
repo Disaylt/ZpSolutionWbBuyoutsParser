@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="Models\Json\ProjectSettingsModel.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ProjectConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
