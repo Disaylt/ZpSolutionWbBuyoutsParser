@@ -1,13 +1,13 @@
-﻿using System;
+﻿using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MongoDB.Driver;
 
-namespace ZpSolutionWbBuyoutsParser.Mongo
+namespace ZpSolutionWbBuyoutsParser.Mongo.Tests
 {
-    internal class WbBuyoutsDatabase : MongoConnector
+    internal class TestDatabase : MongoConnector
     {
         protected IMongoDatabase DataBase
         {
@@ -18,14 +18,14 @@ namespace ZpSolutionWbBuyoutsParser.Mongo
         }
 
         private static IMongoDatabase _database;
-        private const string _dbName = "wb_buyouts";
+        private const string _dbName = "test";
 
-        public WbBuyoutsDatabase()
+        public TestDatabase()
         {
-            if(_database == null)
+            if (_database == null)
             {
                 _database = GetDatabase(_dbName);
-            }    
+            }
         }
     }
 }
