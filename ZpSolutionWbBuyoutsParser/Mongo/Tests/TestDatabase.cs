@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,15 @@ namespace ZpSolutionWbBuyoutsParser.Mongo.Tests
             {
                 _database = GetDatabase(_dbName);
             }
+        }
+
+        public DateTime GetDbTime()
+        {
+            var db = GetDatabase("admin");
+            var serverStatusCmd = new BsonDocumentCommand<BsonDocument>(new BsonDocument { { "serverStatus", 1 } });
+            var result = db.RunCommand(serverStatusCmd);
+            DateTime localTime = result["localTime"].ToLocalTime();
+            return localTime;
         }
     }
 }

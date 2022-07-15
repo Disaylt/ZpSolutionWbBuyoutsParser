@@ -50,10 +50,10 @@ namespace ZpSolutionWbBuyoutsParser.Models.Bson.WB
         public DateTime LastUpdate { get; set; }
 
         [BsonElement("review_date")]
-        public BsonNull ReviewDate { get; set; }
+        public object ReviewDate { get; set; }
 
         [BsonElement("cancel_date")]
-        public BsonNull CancelDate { get; set; }
+        public object CancelDate { get; set; }
 
         [BsonElement("code")]
         public string Code { get; set; }

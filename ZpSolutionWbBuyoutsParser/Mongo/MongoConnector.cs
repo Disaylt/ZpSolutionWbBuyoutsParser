@@ -16,7 +16,7 @@ namespace ZpSolutionWbBuyoutsParser.Mongo
             if( _client == null )
             {
                 _client = CreateClient();
-            }    
+            }
         }
 
         public IMongoDatabase GetDatabase(string name)

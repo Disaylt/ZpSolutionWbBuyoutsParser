@@ -12,6 +12,7 @@ using ZennoLab.Emulation;
 using ZennoLab.InterfacesLibrary.ProjectModel;
 using ZennoLab.InterfacesLibrary.ProjectModel.Enums;
 using ZpSolutionWbBuyoutsParser.Models.Json;
+using ZpSolutionWbBuyoutsParser.Mongo.Tests;
 
 namespace ZpSolutionWbBuyoutsParser
 {
@@ -29,7 +30,9 @@ namespace ZpSolutionWbBuyoutsParser
         public int Execute(Instance instance, IZennoPosterProjectModel project)
         {
             ProjectConfig.Initialize(project);
-            AccountsStore.Instance.SkipOrFillSessionList();
+
+            MongoProductTest test = new MongoProductTest();
+
             int executionResult = 0;
 
             return executionResult;
