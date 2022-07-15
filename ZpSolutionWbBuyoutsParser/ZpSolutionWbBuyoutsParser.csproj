@@ -81,6 +81,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountsStore.cs" />
+    <Compile Include="Models\Json\MongoSettingsModel.cs" />
+    <Compile Include="Mongo\MongoConnector.cs" />
+    <Compile Include="Mongo\MongoSettings.cs" />
     <Compile Include="WorkSettings.cs" />
     <Compile Include="JsonFile.cs" />
     <Compile Include="Models\Json\ProjectSettingsModel.cs" />
