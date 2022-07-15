@@ -8,7 +8,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace ZpSolutionWbBuyoutsParser.Models.Bson.WB
 {
-    internal class ProductsModel
+    internal class ProductModel
     {
         [BsonId]
         public BsonObjectId Id { get; set; }

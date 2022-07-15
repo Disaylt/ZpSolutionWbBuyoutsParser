@@ -11,17 +11,17 @@ namespace ZpSolutionWbBuyoutsParser.Mongo
     internal class WbProductsCollection : WbBuyoutsDatabase
     {
         private const string _name = "products";
-        private static IMongoCollection<ProductsModel> _mongoCollection;
+        private static IMongoCollection<ProductModel> _mongoCollection;
 
         public WbProductsCollection()
         {
             if(_mongoCollection == null )
             {
-                _mongoCollection = DataBase.GetCollection<ProductsModel>(_name);
+                _mongoCollection = DataBase.GetCollection<ProductModel>(_name);
             }
         }
 
-        public void Insert(ProductsModel products)
+        public void Insert(ProductModel products)
         {
             _mongoCollection.InsertOne(products);
         }

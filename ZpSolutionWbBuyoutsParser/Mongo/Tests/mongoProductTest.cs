@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,27 +9,36 @@ using ZpSolutionWbBuyoutsParser.Models.Bson.WB;
 
 namespace ZpSolutionWbBuyoutsParser.Mongo.Tests
 {
-    internal class MongoProductTest
+    internal class MongoProductTest : TestDatabase
     {
-        private const string _collectionName = "wb_products_test";
-        private static TestCollection<ProductsModel> _collection;
+        private const string _collecectionName = "wb_products_test";
+        public IMongoCollection<ProductModel> MongoCollection { get; }
+
         public MongoProductTest()
         {
-            if( _collection == null )
+            if (MongoCollection == null)
             {
-                _collection = new TestCollection<ProductsModel>(_collectionName);
+                MongoCollection = DataBase.GetCollection<ProductModel>(_collecectionName);
             }
         }
 
-        public void ExcecuteTest()
+        public List<ProductModel> GetProducts()
         {
-            ProductsModel productsModel = CreteTestModel();
-            _collection.Insert( productsModel );
+            BsonDocument emptyFilter = new BsonDocument();
+            var products = MongoCollection.FindAsync<ProductModel>(emptyFilter)
+                .Result
+                .ToList();
+            return products;
         }
 
-        private ProductsModel CreteTestModel()
+        public void Insert(ProductModel products)
         {
-            ProductsModel model = new ProductsModel
+            MongoCollection.InsertOne(products);
+        }
+
+        public ProductModel CreteTestModel()
+        {
+            ProductModel model = new ProductModel
             {
                 Address = "test address",
                 IsActive = true,

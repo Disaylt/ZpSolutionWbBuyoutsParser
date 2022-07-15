@@ -19,7 +19,7 @@ namespace ZpSolutionWbBuyoutsParser.Mongo
             }
         }
 
-        public IMongoDatabase GetDatabase(string name)
+        protected IMongoDatabase GetDatabase(string name)
         {
             IMongoDatabase database = _client.GetDatabase(name);
             return database;

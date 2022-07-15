@@ -31,8 +31,6 @@ namespace ZpSolutionWbBuyoutsParser
         {
             ProjectConfig.Initialize(project);
 
-            MongoProductTest test = new MongoProductTest();
-
             int executionResult = 0;
 
             return executionResult;

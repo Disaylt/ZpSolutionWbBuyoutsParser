@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -81,13 +81,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountsStore.cs" />
-    <Compile Include="Models\Bson\WB\ProductsModel.cs" />
+    <Compile Include="Models\Bson\WB\ProductModel.cs" />
     <Compile Include="Models\Json\MongoSettingsModel.cs" />
     <Compile Include="Mongo\MongoConnector.cs" />
     <Compile Include="Mongo\MongoSettings.cs" />
-    <Compile Include="Mongo\Tests\MongoProductTest.cs" />
     <Compile Include="Mongo\Tests\TestDatabase.cs" />
-    <Compile Include="Mongo\Tests\TestCollection.cs" />
+    <Compile Include="Mongo\Tests\MongoProductTest.cs" />
     <Compile Include="Mongo\WbBuyoutsDatabase.cs" />
     <Compile Include="Mongo\WbProductsCollection.cs" />
     <Compile Include="WorkSettings.cs" />
