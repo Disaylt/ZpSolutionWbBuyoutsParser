@@ -47,7 +47,7 @@ namespace ZpSolutionWbBuyoutsParser.Models.Bson.WB
         public string Title { get; set; }
 
         [BsonElement("last_update")]
-        public int LastUpdate { get; set; }
+        public DateTime LastUpdate { get; set; }
 
         [BsonElement("review_date")]
         public BsonNull ReviewDate { get; set; }
