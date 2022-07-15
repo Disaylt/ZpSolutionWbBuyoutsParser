@@ -18,7 +18,7 @@ namespace ZpSolutionWbBuyoutsParser.Mongo
         }
 
         private static IMongoDatabase _database;
-        private const string _dbName = "wb_buyouts";
+        private const string _dbName = "test";
 
         public WbBuyoutsDatabase()
         {
