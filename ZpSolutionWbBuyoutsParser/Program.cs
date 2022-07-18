@@ -35,7 +35,5 @@ namespace ZpSolutionWbBuyoutsParser
 
             return executionResult;
         }
-
-        
     }
 }
