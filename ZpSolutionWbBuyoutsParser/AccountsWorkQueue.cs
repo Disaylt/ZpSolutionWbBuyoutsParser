@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace ZpSolutionWbBuyoutsParser
         {
             _workSettings = new WorkSettings();
             _projectSettings = _workSettings.GetSettings();
-            _sessions = new List<string>();
+            _sessions = LoadFromJsonFile();
         }
 
         public static AccountsWorkQueue Instance
@@ -49,6 +50,7 @@ namespace ZpSolutionWbBuyoutsParser
                     WbPlanningCollection wbPlanningCollection = new WbPlanningCollection();
                     _sessions = wbPlanningCollection.GetUniqueAccountsForLastDays(numDays);
                     JsonFile.Save($"{ProjectConfig.GetInstance().ProjectPath}{_fileNameSessionList}", _sessions);
+                    UpdateWorkDate();
                 }
             }
         }
@@ -68,6 +70,20 @@ namespace ZpSolutionWbBuyoutsParser
                 {
                     throw new Exception("uqeue sessions is empty");
                 }
+            }
+        }
+
+        private List<string> LoadFromJsonFile()
+        {
+            string pathFile = $"{ProjectConfig.GetInstance().ProjectPath}{_fileNameSessionList}";
+            if (File.Exists(pathFile))
+            {
+                List<string> sessions = JsonFile.Load<List<string>>(pathFile);
+                return sessions;
+            }
+            else
+            {
+                return new List<string>();
             }
         }
 

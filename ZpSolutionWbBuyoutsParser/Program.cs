@@ -30,6 +30,8 @@ namespace ZpSolutionWbBuyoutsParser
         public int Execute(Instance instance, IZennoPosterProjectModel project)
         {
             ProjectConfig.Initialize(project);
+            AccountsWorkQueue accountsWorkQueue = AccountsWorkQueue.Instance;
+            accountsWorkQueue.SkipOrCreateQueue();
 
             int executionResult = 0;
 
