@@ -46,9 +46,8 @@ namespace ZpSolutionWbBuyoutsParser
                 DateTime lastWorkDate = _projectSettings.LastWorkDate;
                 if(lastWorkDate.Date != DateTime.Now.Date)
                 {
-                    int numDays = 14;
                     WbPlanningCollection wbPlanningCollection = new WbPlanningCollection();
-                    _sessions = wbPlanningCollection.GetUniqueAccountsForLastDays(numDays);
+                    _sessions = wbPlanningCollection.GetUniqueAccountsForLastDays(_projectSettings.NumberDaysForGettingSessions);
                     JsonFile.Save($"{ProjectConfig.GetInstance().ProjectPath}{_fileNameSessionList}", _sessions);
                     UpdateWorkDate();
                 }
