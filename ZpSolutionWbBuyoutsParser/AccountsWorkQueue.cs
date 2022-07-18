@@ -46,8 +46,7 @@ namespace ZpSolutionWbBuyoutsParser
                 DateTime lastWorkDate = _projectSettings.LastWorkDate;
                 if(lastWorkDate.Date != DateTime.Now.Date)
                 {
-                    WbPlanningCollection wbPlanningCollection = new WbPlanningCollection();
-                    _sessions = wbPlanningCollection.GetUniqueAccountsForLastDays(_projectSettings.NumberDaysForGettingSessions);
+                    _sessions = CreateQueueSessions();
                     JsonFile.Save($"{ProjectConfig.GetInstance().ProjectPath}{_fileNameSessionList}", _sessions);
                     UpdateWorkDate();
                 }
@@ -69,6 +68,20 @@ namespace ZpSolutionWbBuyoutsParser
                 {
                     throw new Exception("uqeue sessions is empty");
                 }
+            }
+        }
+
+        private List<string> CreateQueueSessions()
+        {
+            if(_projectSettings.IsParseAllAccounts)
+            {
+                WbAccountsCollection accountsCollection = new WbAccountsCollection();
+                return accountsCollection.GetWorkingAccounts();
+            }
+            else
+            {
+                WbPlanningCollection wbPlanningCollection = new WbPlanningCollection();
+                return wbPlanningCollection.GetUniqueAccountsForLastDays(_projectSettings.NumberDaysForGettingSessions);
             }
         }
 
