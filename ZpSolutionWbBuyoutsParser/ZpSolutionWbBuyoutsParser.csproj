@@ -92,6 +92,8 @@
     <Compile Include="Mongo\WbBuyoutsDatabase.cs" />
     <Compile Include="Mongo\WbPlanningCollection.cs" />
     <Compile Include="Mongo\WbProductsCollection.cs" />
+    <Compile Include="Parser\HttpRequestSender.cs" />
+    <Compile Include="Parser\ZpHttpClient.cs" />
     <Compile Include="WorkSettings.cs" />
     <Compile Include="JsonFile.cs" />
     <Compile Include="Models\Json\ProjectSettingsModel.cs" />

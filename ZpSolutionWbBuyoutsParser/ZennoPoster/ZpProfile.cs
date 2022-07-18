@@ -8,6 +8,9 @@ namespace ZpSolutionWbBuyoutsParser.ZennoPoster
 {
     internal class ZpProfile
     {
+        public ZpProfile(string name)
+        {
 
+        }
     }
 }
