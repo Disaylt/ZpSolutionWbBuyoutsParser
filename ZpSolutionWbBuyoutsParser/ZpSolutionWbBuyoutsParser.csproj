@@ -88,6 +88,7 @@
     <Compile Include="Mongo\Tests\TestDatabase.cs" />
     <Compile Include="Mongo\Tests\MongoProductTest.cs" />
     <Compile Include="Mongo\WbBuyoutsDatabase.cs" />
+    <Compile Include="Mongo\WbPlanningCollection.cs" />
     <Compile Include="Mongo\WbProductsCollection.cs" />
     <Compile Include="WorkSettings.cs" />
     <Compile Include="JsonFile.cs" />

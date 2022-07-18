@@ -34,7 +34,7 @@ namespace ZpSolutionWbBuyoutsParser
             }
         }
 
-        public void SkipOrFillSessionList()
+        public void SkipOrCreateQueue()
         {
             lock(_lock)
             {
