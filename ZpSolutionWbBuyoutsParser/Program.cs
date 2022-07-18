@@ -11,6 +11,8 @@ using ZennoLab.CommandCenter;
 using ZennoLab.Emulation;
 using ZennoLab.InterfacesLibrary.ProjectModel;
 using ZennoLab.InterfacesLibrary.ProjectModel.Enums;
+using ZpSolutionWbBuyoutsParser.Models.Json;
+using ZpSolutionWbBuyoutsParser.Mongo.Tests;
 
 namespace ZpSolutionWbBuyoutsParser
 {
@@ -24,9 +26,13 @@ namespace ZpSolutionWbBuyoutsParser
         /// </summary>
         /// <param name="instance">Объект инстанса выделеный для данного скрипта</param>
         /// <param name="project">Объект проекта выделеный для данного скрипта</param>
-        /// <returns>Код выполнения скрипта</returns>		
+        /// <returns>Код выполнения скрипта</returns>
         public int Execute(Instance instance, IZennoPosterProjectModel project)
         {
+            ProjectConfig.Initialize(project);
+            AccountsWorkQueue accountsWorkQueue = AccountsWorkQueue.Instance;
+            accountsWorkQueue.SkipOrCreateQueue();
+
             int executionResult = 0;
 
             return executionResult;
