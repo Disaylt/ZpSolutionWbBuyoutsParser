@@ -27,6 +27,6 @@ namespace ZpSolutionWbBuyoutsParser.Models.Json
         public DateTime OrderDate { get; set; }
 
         [JsonProperty("lastDate")]
-        public DateTime lastDate { get; set; }
+        public DateTime LastDate { get; set; }
     }
 }

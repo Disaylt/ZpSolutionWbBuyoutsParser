@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SmartProxyV2_ZennoLabVersion">
+      <HintPath>..\Lib\SmartProxyV2_ZennoLabVersion.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -98,6 +101,7 @@
     <Compile Include="Parser\IHeaderInstaller.cs" />
     <Compile Include="Parser\WbHeaderInstaller.cs" />
     <Compile Include="Parser\ZpHttpClient.cs" />
+    <Compile Include="Proxy\ProxyStream.cs" />
     <Compile Include="WbStorage\IOrderStatusConverter.cs" />
     <Compile Include="WbStorage\ArchiveOrderStatusConverterV1.cs" />
     <Compile Include="WorkSettings.cs" />
