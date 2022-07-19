@@ -10,7 +10,7 @@ namespace ZpSolutionWbBuyoutsParser.Parser
 {
     internal class WbHeaderInstaller : IHeaderInstaller
     {
-        private IProfile _zpProfile;
+        private readonly IProfile _zpProfile;
         public WbHeaderInstaller(IProfile zpProfile)
         {
             _zpProfile = zpProfile;

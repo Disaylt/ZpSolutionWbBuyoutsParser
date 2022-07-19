@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using ZpSolutionWbBuyoutsParser.Models.Http;
 
 namespace ZpSolutionWbBuyoutsParser.Parser
 {
@@ -29,6 +31,18 @@ namespace ZpSolutionWbBuyoutsParser.Parser
             }
         }
 
-        public async Task<string> SendWithBody()
+        public async Task<string> SendWithBody(HttpMethod httpMethod, string url, RequestContentModel requestContentModel)
+        {
+            var client = new HttpClient(HttpClientHandler);
+            using (var request = new HttpRequestMessage(httpMethod, url))
+            {
+                _headerInstaller.SetHeaders(request);
+                var response = await client.SendAsync(request);
+                request.Content = requestContentModel.Content;
+                request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(requestContentModel.ContentType);
+                string responseContent = await response.Content.ReadAsStringAsync();
+                return responseContent;
+            }
+        }
     }
 }
