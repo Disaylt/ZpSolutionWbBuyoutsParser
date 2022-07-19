@@ -23,7 +23,12 @@ namespace ZpSolutionWbBuyoutsParser.Parser
             using(var request = new HttpRequestMessage(httpMethod, url))
             {
                 _headerInstaller.SetHeaders(request);
+                var response = await client.SendAsync(request);
+                string responseContent = await response.Content.ReadAsStringAsync();
+                return responseContent;
             }
         }
+
+        public async Task<string> SendWithBody()
     }
 }

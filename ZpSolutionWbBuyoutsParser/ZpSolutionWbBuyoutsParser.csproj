@@ -83,6 +83,7 @@
     <Compile Include="AccountsWorkQueue.cs" />
     <Compile Include="Models\Bson\WB\PlanningModel.cs" />
     <Compile Include="Models\Bson\WB\ProductModel.cs" />
+    <Compile Include="Models\Http\RequestContentModel.cs" />
     <Compile Include="Models\Json\MongoSettingsModel.cs" />
     <Compile Include="Mongo\MongoConnector.cs" />
     <Compile Include="Mongo\MongoSettings.cs" />
