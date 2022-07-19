@@ -19,7 +19,7 @@ namespace ZpSolutionWbBuyoutsParser.Parser
             _headerInstaller = headerInstaller;
         }
 
-        public async Task<string> Send(HttpMethod httpMethod, string url)
+        public async Task<string> SendAsync(HttpMethod httpMethod, string url)
         {
             var client = new HttpClient(HttpClientHandler);
             using(var request = new HttpRequestMessage(httpMethod, url))
@@ -31,7 +31,7 @@ namespace ZpSolutionWbBuyoutsParser.Parser
             }
         }
 
-        public async Task<string> SendWithBody(HttpMethod httpMethod, string url, RequestContentModel requestContentModel)
+        public async Task<string> SendAsync(HttpMethod httpMethod, string url, RequestContentModel requestContentModel)
         {
             var client = new HttpClient(HttpClientHandler);
             using (var request = new HttpRequestMessage(httpMethod, url))

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ZpSolutionWbBuyoutsParser.Models.Json
 {
-    internal class ArchiveProductsModel
+    internal class ArchiveProductModel
     {
         [JsonProperty("code1S")]
         public int ProductId { get; set; }
