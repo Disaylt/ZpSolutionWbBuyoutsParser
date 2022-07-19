@@ -9,10 +9,12 @@ namespace ZpSolutionWbBuyoutsParser.Parser
 {
     internal class HttpRequestSender
     {
-        protected ZpHttpClient HttpClientHandler { get; private set; }
-        public HttpRequestSender(ZpHttpClient httpClientHandler)
+        protected ZpHttpClient HttpClientHandler { get; }
+        private readonly IHeaderInstaller _headerInstaller;
+        public HttpRequestSender(ZpHttpClient httpClientHandler, IHeaderInstaller headerInstaller)
         {
             HttpClientHandler = httpClientHandler;
+            _headerInstaller = headerInstaller;
         }
 
         public async Task<string> Send(HttpMethod httpMethod, string url)
@@ -20,7 +22,7 @@ namespace ZpSolutionWbBuyoutsParser.Parser
             var client = new HttpClient(HttpClientHandler);
             using(var request = new HttpRequestMessage(httpMethod, url))
             {
-                request.Headers.TryAddWithoutValidation("User-Agent", HttpClientHandler.UserAgent);
+                _headerInstaller.SetHeaders(request);
             }
         }
     }
