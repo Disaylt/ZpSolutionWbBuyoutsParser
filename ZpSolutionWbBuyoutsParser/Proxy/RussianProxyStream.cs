@@ -10,10 +10,10 @@ using SmartProxyV2_ZennoLabVersion.MongoModels;
 
 namespace ZpSolutionWbBuyoutsParser.Proxy
 {
-    internal class ProxyStream : IDisposable
+    internal class RussianProxyStream : IDisposable
     {
         private readonly ProxyModel _proxy;
-        public ProxyStream()
+        public RussianProxyStream()
         {
             _proxy = TakeProxy();
         }
