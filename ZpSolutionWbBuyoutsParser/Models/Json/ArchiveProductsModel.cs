@@ -13,8 +13,7 @@ namespace ZpSolutionWbBuyoutsParser.Models.Json
         public int ProductId { get; set; }
 
         [JsonProperty("rId")]
-        public string OrderId { get; set; }
-
+        public string OrderId { get; set; } 
         [JsonProperty("name")]
         public string Name { get; set; }
 
