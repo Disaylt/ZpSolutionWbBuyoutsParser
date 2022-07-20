@@ -10,6 +10,7 @@ using MongoDB.Driver;
 using ZpSolutionWbBuyoutsParser.WbStorage;
 using ZpSolutionWbBuyoutsParser.Models.Bson.WB;
 using ZpSolutionWbBuyoutsParser.ZennoPoster;
+using ZpSolutionWbBuyoutsParser.Models.Json;
 
 namespace ZpSolutionWbBuyoutsParser.OrdersManager
 {
@@ -49,29 +50,51 @@ namespace ZpSolutionWbBuyoutsParser.OrdersManager
                 }
                 else
                 {
-                    ProductModel productModel = new ProductModel
-                    {
-                        Address = null,
-                        IsActive = true,
-                        Brand = archiveProduct.Brand,
-                        BuyoutsDate = archiveProduct.OrderDate,
-                        CancelDate = null,
-                        Code = string.Empty,
-                        LastCheck = DateTime.Now,
-                        LastUpdate = DateTime.Now,
-                        OrderDate = archiveProduct.OrderDate,
-                        Title = archiveProduct.Name,
-                        Price = archiveProduct.Price,
-                        ProductId = archiveProduct.ProductId,
-                        ReciveDate = string.Empty,
-                        ReviewDate = null,
-                        ReviewExists = false,
-                        RID = archiveProduct.RId,
-                        Session = _zennoPosterProfile.SessionName,
-                        Status = currentStatus
-                    };
-                    _productCollection.Insert(productModel);
+                    CreateNewArchiveProduct(archiveProduct);
                 }
+            }
+        }
+
+        private void CreateNewArchiveProduct(ArchiveProductModel archiveProduct)
+        {
+            if(ProductSuitableForDb(archiveProduct))
+            {
+                string currentStatus = _archiveOrderStatusConverter.GetDbFormatStatus(archiveProduct.Status);
+                ProductModel productModel = new ProductModel
+                {
+                    Address = null,
+                    IsActive = true,
+                    Brand = archiveProduct.Brand,
+                    BuyoutsDate = archiveProduct.OrderDate,
+                    CancelDate = null,
+                    Code = string.Empty,
+                    LastCheck = DateTime.Now,
+                    LastUpdate = DateTime.Now,
+                    OrderDate = archiveProduct.OrderDate,
+                    Title = archiveProduct.Name,
+                    Price = archiveProduct.Price,
+                    ProductId = archiveProduct.ProductId,
+                    ReciveDate = string.Empty,
+                    ReviewDate = null,
+                    ReviewExists = false,
+                    RID = archiveProduct.RId,
+                    Session = _zennoPosterProfile.SessionName,
+                    Status = currentStatus
+                };
+                _productCollection.Insert(productModel);
+            }
+        }
+
+        private bool ProductSuitableForDb(ArchiveProductModel archiveProduct)
+        {
+            DateTime writeDate = DateTime.Now.AddDays(-90);
+            if(archiveProduct.OrderDate > writeDate)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
