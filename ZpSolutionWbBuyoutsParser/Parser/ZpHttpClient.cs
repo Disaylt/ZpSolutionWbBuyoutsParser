@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZennoLab.InterfacesLibrary.ProjectModel;
 using ZennoLab.InterfacesLibrary.ProjectModel.Collections;
+using ZpSolutionWbBuyoutsParser.ZennoPoster;
 
 namespace ZpSolutionWbBuyoutsParser.Parser
 {
@@ -15,8 +16,7 @@ namespace ZpSolutionWbBuyoutsParser.Parser
         public string UserAgent { get; }
         public ZpHttpClient(IProfile profile, IWebProxy proxy)
         {
-            CookieContainer = (CookieContainer)profile.CookieContainer;
-            List<ICookieItem> cookieItems = profile.CookieContainer;
+            CookieContainer = new ZennoCookieContainer(profile.CookieContainer);
             UseProxy = true;
             Proxy = proxy;
             UserAgent = profile.UserAgent;

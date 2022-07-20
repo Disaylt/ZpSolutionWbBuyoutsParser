@@ -30,6 +30,12 @@ namespace ZpSolutionWbBuyoutsParser.Parser
             return products;
         }
 
+        public object GetCurrentOrders()
+        {
+            string url = "https://www.wildberries.ru/webapi/lk/myorders/delivery/active";
+            return new object();
+        }
+
         private HttpRequestSender CreateWbRequestSender(IWebProxy webProxy, IProfile profile)
         {
             ZpHttpClient zpHttpClient = new ZpHttpClient(profile, webProxy);
