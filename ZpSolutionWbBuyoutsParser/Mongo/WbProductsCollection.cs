@@ -37,14 +37,14 @@ namespace ZpSolutionWbBuyoutsParser.Mongo
         public void UpdateCheckDate(BsonObjectId id)
         {
             var filter = Builders<ProductModel>.Filter.Eq("_id", id);
-            _mongoCollection.UpdateOne(filter, new BsonDocument("$set", new BsonDocument("last_check", DateTime.Now)));
+            _mongoCollection.UpdateOne(filter, new BsonDocument("$set", new BsonDocument("last_check", DateTime.Now.AddHours(3))));
         }
 
         public void Replace(ProductModel product)
         {
             var filter = Builders<ProductModel>.Filter.Eq("_id", product.Id);
-            product.LastUpdate = DateTime.Now;
-            product.LastCheck = DateTime.Now;
+            product.LastUpdate = DateTime.Now.AddHours(3);
+            product.LastCheck = DateTime.Now.AddHours(3);
             _mongoCollection.ReplaceOne(filter, product);
         }
     }

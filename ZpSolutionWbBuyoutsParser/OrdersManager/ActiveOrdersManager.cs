@@ -14,7 +14,6 @@ namespace ZpSolutionWbBuyoutsParser.OrdersManager
     {
         private readonly WbAccountOrdersParser _orderParser;
         private readonly WbProductsCollection _productCollection;
-        private readonly IOrderStatusConverter _archiveOrderStatusConverter;
         private readonly ZennoPosterProfile _zennoPosterProfile;
 
         public ActiveOrdersManager(WbAccountOrdersParser ordersParser, ZennoPosterProfile zennoPosterProfile)
@@ -22,7 +21,11 @@ namespace ZpSolutionWbBuyoutsParser.OrdersManager
             _orderParser = ordersParser;
             _zennoPosterProfile = zennoPosterProfile;
             _productCollection = new WbProductsCollection();
-            _archiveOrderStatusConverter = new ArchiveOrderStatusConverterV1();
+        }
+
+        public void UpdateOrdersData()
+        {
+            var orders = _orderParser.GetActiveOrders();
         }
     }
 }
