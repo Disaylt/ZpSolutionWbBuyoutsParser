@@ -48,7 +48,7 @@ namespace ZpSolutionWbBuyoutsParser
             {
                 WbAccountOrdersParser ordersParser = new WbAccountOrdersParser(proxyStream.GetProxy(), project);
                 var orders = ordersParser.GetArchiveProducts();
-                Console.WriteLine("asd");
+                var activeOrders = ordersParser.GetActiveOrders();
             }
         }
 
