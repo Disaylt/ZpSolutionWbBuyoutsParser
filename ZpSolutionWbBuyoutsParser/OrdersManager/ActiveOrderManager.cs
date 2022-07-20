@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZpSolutionWbBuyoutsParser.OrdersManager
 {
-    internal class Active_OrderManager
+    internal class ActiveOrderManager
     {
     }
 }
