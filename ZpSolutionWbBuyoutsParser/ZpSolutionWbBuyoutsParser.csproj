@@ -101,6 +101,7 @@
     <Compile Include="Mongo\WbBuyoutsDatabase.cs" />
     <Compile Include="Mongo\WbPlanningCollection.cs" />
     <Compile Include="Mongo\WbProductsCollection.cs" />
+    <Compile Include="OrdersManager\ArchiveOrderManager.cs" />
     <Compile Include="Parser\HttpRequestSender.cs" />
     <Compile Include="Parser\IHeaderInstaller.cs" />
     <Compile Include="Parser\WbAccountOrdersParser.cs" />
@@ -152,4 +153,5 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup />
 </Project>

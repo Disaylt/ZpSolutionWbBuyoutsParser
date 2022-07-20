@@ -14,8 +14,10 @@ using ZennoLab.InterfacesLibrary.ProjectModel.Collections;
 using ZennoLab.InterfacesLibrary.ProjectModel.Enums;
 using ZpSolutionWbBuyoutsParser.Models.Json;
 using ZpSolutionWbBuyoutsParser.Mongo.Tests;
+using ZpSolutionWbBuyoutsParser.OrdersManager;
 using ZpSolutionWbBuyoutsParser.Parser;
 using ZpSolutionWbBuyoutsParser.Proxy;
+using ZpSolutionWbBuyoutsParser.ZennoPoster;
 
 namespace ZpSolutionWbBuyoutsParser
 {
@@ -35,28 +37,23 @@ namespace ZpSolutionWbBuyoutsParser
             ProjectConfig.Initialize(project);
             AccountsWorkQueue accountsWorkQueue = AccountsWorkQueue.Instance;
             accountsWorkQueue.SkipOrCreateQueue();
-            string sessionName = accountsWorkQueue.TakeSession();
-            LoadProfile(project.Profile, sessionName);
-            StartParsingOrders(project.Profile);
+            string sessionName = "eckremantis1988";//accountsWorkQueue.TakeSession();
+
+            ZennoPosterProfile zennoPosterProfile = new ZennoPosterProfile(project.Profile, sessionName);
+            zennoPosterProfile.Load();
+            StartParsingOrders(zennoPosterProfile);
             int executionResult = 0;
             return executionResult;
         }
 
-        private void StartParsingOrders(IProfile project)
+        private void StartParsingOrders(ZennoPosterProfile zpProfile)
         {
             using (RussianProxyStream proxyStream = new RussianProxyStream())
             {
-                WbAccountOrdersParser ordersParser = new WbAccountOrdersParser(proxyStream.GetProxy(), project);
-                var orders = ordersParser.GetArchiveProducts();
-                var activeOrders = ordersParser.GetActiveOrders();
+                WbAccountOrdersParser ordersParser = new WbAccountOrdersParser(proxyStream.GetProxy(), zpProfile.Profile);
+                ArchiveOrderManager archiveOrderManager = new ArchiveOrderManager(ordersParser, zpProfile);
+                archiveOrderManager.UpdateOrdersData();
             }
-        }
-
-        private void LoadProfile(IProfile project, string sessionName)
-        {
-            WorkSettings workSettings = new WorkSettings();
-            string pathToZpProfilese = workSettings.GetSettings().PathToZpProfiles;
-            project.Load($"{pathToZpProfilese}{sessionName}.zpprofile");
         }
     }
 }

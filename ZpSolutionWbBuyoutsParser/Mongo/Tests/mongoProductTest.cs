@@ -51,7 +51,6 @@ namespace ZpSolutionWbBuyoutsParser.Mongo.Tests
                 Price = 123,
                 ProductId = 21321312,
                 ReciveDate = "test date",
-                ReviewExists = false,
                 RID = "123123123",
                 Session = "sadasd",
                 Status = "complete",
