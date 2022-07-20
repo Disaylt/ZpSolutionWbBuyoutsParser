@@ -51,7 +51,7 @@ namespace ZpSolutionWbBuyoutsParser
             using (RussianProxyStream proxyStream = new RussianProxyStream())
             {
                 WbAccountOrdersParser ordersParser = new WbAccountOrdersParser(proxyStream.GetProxy(), zpProfile.Profile);
-                ArchiveOrderManager archiveOrderManager = new ArchiveOrderManager(ordersParser, zpProfile);
+                ArchiveOrdersManager archiveOrderManager = new ArchiveOrdersManager(ordersParser, zpProfile);
                 archiveOrderManager.UpdateOrdersData();
             }
         }

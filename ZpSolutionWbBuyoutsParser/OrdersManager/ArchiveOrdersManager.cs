@@ -14,14 +14,14 @@ using ZpSolutionWbBuyoutsParser.Models.Json;
 
 namespace ZpSolutionWbBuyoutsParser.OrdersManager
 {
-    internal class ArchiveOrderManager
+    internal class ArchiveOrdersManager
     {
         private readonly WbAccountOrdersParser _orderParser;
         private readonly WbProductsCollection _productCollection;
         private readonly IOrderStatusConverter _archiveOrderStatusConverter;
         private readonly ZennoPosterProfile _zennoPosterProfile;
 
-        public ArchiveOrderManager(WbAccountOrdersParser ordersParser, ZennoPosterProfile zennoPosterProfile)
+        public ArchiveOrdersManager(WbAccountOrdersParser ordersParser, ZennoPosterProfile zennoPosterProfile)
         {
             _orderParser = ordersParser;
             _zennoPosterProfile = zennoPosterProfile;
