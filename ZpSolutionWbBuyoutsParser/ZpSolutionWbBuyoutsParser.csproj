@@ -101,9 +101,9 @@
     <Compile Include="Mongo\DatabaseFactoryStorage\WbBuyoutsDatabaseConnector.cs" />
     <Compile Include="Mongo\MongoConnector.cs" />
     <Compile Include="Mongo\MongoSettings.cs" />
-    <Compile Include="Mongo\WbAccountsCollection.cs" />
-    <Compile Include="Mongo\WbPlanningCollection.cs" />
-    <Compile Include="Mongo\WbProductsCollection.cs" />
+    <Compile Include="Mongo\CollectionStorage\WbAccountsCollection.cs" />
+    <Compile Include="Mongo\CollectionStorage\WbPlanningCollection.cs" />
+    <Compile Include="Mongo\CollectionStorage\WbProductsCollection.cs" />
     <Compile Include="OrdersManager\ActiveOrdersManager.cs" />
     <Compile Include="OrdersManager\ArchiveOrdersManager.cs" />
     <Compile Include="OrdersManager\IOrdersManager.cs" />

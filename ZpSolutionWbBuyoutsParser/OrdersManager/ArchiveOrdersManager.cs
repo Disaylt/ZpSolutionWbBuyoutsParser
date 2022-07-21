@@ -11,6 +11,7 @@ using ZpSolutionWbBuyoutsParser.WbStorage;
 using ZpSolutionWbBuyoutsParser.Models.Bson.WB;
 using ZpSolutionWbBuyoutsParser.ZennoPoster;
 using ZpSolutionWbBuyoutsParser.Models.Json;
+using ZpSolutionWbBuyoutsParser.Mongo.CollectionStorage;
 
 namespace ZpSolutionWbBuyoutsParser.OrdersManager
 {

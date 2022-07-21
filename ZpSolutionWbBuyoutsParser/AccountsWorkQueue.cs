@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZpSolutionWbBuyoutsParser.Models.Json;
 using ZpSolutionWbBuyoutsParser.Mongo;
+using ZpSolutionWbBuyoutsParser.Mongo.CollectionStorage;
 
 namespace ZpSolutionWbBuyoutsParser
 {

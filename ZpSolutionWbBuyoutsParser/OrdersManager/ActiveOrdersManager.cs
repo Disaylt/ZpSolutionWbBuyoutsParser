@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ZpSolutionWbBuyoutsParser.Models.Bson.WB;
 using ZpSolutionWbBuyoutsParser.Models.Json;
 using ZpSolutionWbBuyoutsParser.Mongo;
+using ZpSolutionWbBuyoutsParser.Mongo.CollectionStorage;
 using ZpSolutionWbBuyoutsParser.Parser;
 using ZpSolutionWbBuyoutsParser.WbStorage;
 using ZpSolutionWbBuyoutsParser.ZennoPoster;
