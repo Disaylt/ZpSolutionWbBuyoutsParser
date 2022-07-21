@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using ZpSolutionWbBuyoutsParser.Models.Bson.WB;
-using ZpSolutionWbBuyoutsParser.Mongo.Tests;
+using ZpSolutionWbBuyoutsParser.Mongo.DatabaseFactoryStorage;
 
 namespace ZpSolutionWbBuyoutsParser.Mongo
 {
-    internal class WbProductsCollection : TestDatabase
+    internal class WbProductsCollection
     {
         private const string _name = "products";
         private static IMongoCollection<ProductModel> _mongoCollection;
@@ -19,7 +19,9 @@ namespace ZpSolutionWbBuyoutsParser.Mongo
         {
             if(_mongoCollection == null )
             {
-                _mongoCollection = DataBase.GetCollection<ProductModel>(_name);
+                DatabaseFactory databaseFactory = new TestDatabaseFactory();
+                var dbConnector = databaseFactory.GetDbConnector();
+                _mongoCollection = dbConnector.Database.GetCollection<ProductModel>(_name);
             }
         }
 

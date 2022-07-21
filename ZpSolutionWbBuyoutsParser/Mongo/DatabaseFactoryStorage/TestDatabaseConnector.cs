@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZpSolutionWbBuyoutsParser.Mongo.DatabaseFactory
+namespace ZpSolutionWbBuyoutsParser.Mongo.DatabaseFactoryStorage
 {
-    internal class TestDatabase : MongoDatabase
+    internal class TestDatabaseConnector : DatabaseConnector
     {
         public override IMongoDatabase Database
         {
@@ -20,7 +20,7 @@ namespace ZpSolutionWbBuyoutsParser.Mongo.DatabaseFactory
         private static IMongoDatabase _database;
         private const string _dbName = "test";
 
-        public TestDatabase()
+        public TestDatabaseConnector()
         {
             if (_database == null)
             {

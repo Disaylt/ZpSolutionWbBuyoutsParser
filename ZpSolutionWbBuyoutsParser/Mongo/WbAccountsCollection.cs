@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZpSolutionWbBuyoutsParser.Mongo.DatabaseFactoryStorage;
 
 namespace ZpSolutionWbBuyoutsParser.Mongo
 {
-    internal class WbAccountsCollection : WbBuyoutsDatabase
+    internal class WbAccountsCollection
     {
         private const string _name = "accounts";
 
@@ -18,7 +19,10 @@ namespace ZpSolutionWbBuyoutsParser.Mongo
         {
             if (_mongoCollection == null)
             {
-                _mongoCollection = DataBase.GetCollection<BsonDocument>(_name);
+
+                DatabaseFactory databaseFactory = new WbBuyoutsDatabaseFactory();
+                var dbConnector = databaseFactory.GetDbConnector();
+                _mongoCollection = dbConnector.Database.GetCollection<BsonDocument>(_name);
             }
         }
 

@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZpSolutionWbBuyoutsParser.Models.Bson.WB;
+using ZpSolutionWbBuyoutsParser.Mongo.DatabaseFactoryStorage;
 
 namespace ZpSolutionWbBuyoutsParser.Mongo
 {
-    internal class WbPlanningCollection : WbBuyoutsDatabase
+    internal class WbPlanningCollection
     {
         private const string _name = "planning";
 
@@ -19,7 +20,9 @@ namespace ZpSolutionWbBuyoutsParser.Mongo
         {
             if (_mongoCollection == null)
             {
-                _mongoCollection = DataBase.GetCollection<BsonDocument>(_name);
+                DatabaseFactory databaseFactory = new WbBuyoutsDatabaseFactory();
+                var dbConnector = databaseFactory.GetDbConnector();
+                _mongoCollection = dbConnector.Database.GetCollection<BsonDocument>(_name);
             }
         }
 

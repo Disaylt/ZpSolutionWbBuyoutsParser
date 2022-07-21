@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZpSolutionWbBuyoutsParser.Mongo.DatabaseFactory
+namespace ZpSolutionWbBuyoutsParser.Mongo.DatabaseFactoryStorage
 {
-    internal abstract class MongoDatabase : MongoConnector
+    internal abstract class DatabaseConnector : MongoConnector
     {
         public abstract IMongoDatabase Database { get; }
     }
