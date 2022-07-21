@@ -14,7 +14,7 @@ using ZpSolutionWbBuyoutsParser.Models.Json;
 
 namespace ZpSolutionWbBuyoutsParser.OrdersManager
 {
-    internal class ArchiveOrdersManager
+    internal class ArchiveOrdersManager : IOrdersManager
     {
         private readonly WbAccountOrdersParser _orderParser;
         private readonly WbProductsCollection _productCollection;

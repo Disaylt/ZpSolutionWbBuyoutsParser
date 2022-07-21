@@ -12,7 +12,7 @@ using ZpSolutionWbBuyoutsParser.ZennoPoster;
 
 namespace ZpSolutionWbBuyoutsParser.OrdersManager
 {
-    internal class ActiveOrdersManager
+    internal class ActiveOrdersManager : IOrdersManager
     {
         private readonly WbAccountOrdersParser _orderParser;
         private readonly WbProductsCollection _productCollection;
