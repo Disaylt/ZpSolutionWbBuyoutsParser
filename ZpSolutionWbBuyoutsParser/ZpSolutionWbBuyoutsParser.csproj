@@ -103,6 +103,7 @@
     <Compile Include="Mongo\WbProductsCollection.cs" />
     <Compile Include="OrdersManager\ActiveOrdersManager.cs" />
     <Compile Include="OrdersManager\ArchiveOrdersManager.cs" />
+    <Compile Include="OrdersManager\IOrdersManager.cs" />
     <Compile Include="Parser\HttpRequestSender.cs" />
     <Compile Include="Parser\IHeaderInstaller.cs" />
     <Compile Include="Parser\WbAccountOrdersParser.cs" />

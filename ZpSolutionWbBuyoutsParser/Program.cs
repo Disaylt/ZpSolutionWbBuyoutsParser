@@ -17,6 +17,7 @@ using ZpSolutionWbBuyoutsParser.Mongo.Tests;
 using ZpSolutionWbBuyoutsParser.OrdersManager;
 using ZpSolutionWbBuyoutsParser.Parser;
 using ZpSolutionWbBuyoutsParser.Proxy;
+using ZpSolutionWbBuyoutsParser.WbStorage;
 using ZpSolutionWbBuyoutsParser.ZennoPoster;
 
 namespace ZpSolutionWbBuyoutsParser
@@ -37,7 +38,7 @@ namespace ZpSolutionWbBuyoutsParser
             ProjectConfig.Initialize(project);
             AccountsWorkQueue accountsWorkQueue = AccountsWorkQueue.Instance;
             accountsWorkQueue.SkipOrCreateQueue();
-            string sessionName = "eckremantis1988";//accountsWorkQueue.TakeSession();
+            string sessionName = accountsWorkQueue.TakeSession();
 
             ZennoPosterProfile zennoPosterProfile = new ZennoPosterProfile(project.Profile, sessionName);
             zennoPosterProfile.Load();
@@ -51,9 +52,24 @@ namespace ZpSolutionWbBuyoutsParser
             using (RussianProxyStream proxyStream = new RussianProxyStream())
             {
                 WbAccountOrdersParser ordersParser = new WbAccountOrdersParser(proxyStream.GetProxy(), zpProfile.Profile);
-                ArchiveOrdersManager archiveOrderManager = new ArchiveOrdersManager(ordersParser, zpProfile);
-                archiveOrderManager.UpdateOrdersData();
+                StartArchiveManager(ordersParser, zpProfile);
+                StartActiveManager(ordersParser, zpProfile);
             }
+        }
+
+        private void StartArchiveManager(WbAccountOrdersParser wbAccountOrdersParser, ZennoPosterProfile zpProfile)
+        {
+            IOrderArchiveStatusConverter orderArchiveStatusConverter = new ArchiveOrderStatusConverterV1();
+            IOrdersManager archiveOrdersManager = new ArchiveOrdersManager(wbAccountOrdersParser, zpProfile, orderArchiveStatusConverter);
+            archiveOrdersManager.UpdateOrdersData();
+        }
+
+        private void StartActiveManager(WbAccountOrdersParser wbAccountOrdersParser, ZennoPosterProfile zpProfile)
+        {
+            IOrderActiveStatusConverter orderActiveStatusConverter = new ActiveOrderStatusConverterV1();
+            IOrdersManager activeOrdersManager = new ActiveOrdersManager(wbAccountOrdersParser, zpProfile, orderActiveStatusConverter);
+            activeOrdersManager.UpdateOrdersData();
+            
         }
     }
 }

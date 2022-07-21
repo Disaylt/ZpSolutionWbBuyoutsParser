@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using ZpSolutionWbBuyoutsParser.Models.Bson.WB;
+using ZpSolutionWbBuyoutsParser.Mongo.Tests;
 
 namespace ZpSolutionWbBuyoutsParser.Mongo
 {
-    internal class WbProductsCollection : WbBuyoutsDatabase
+    internal class WbProductsCollection : TestDatabase
     {
         private const string _name = "products";
         private static IMongoCollection<ProductModel> _mongoCollection;

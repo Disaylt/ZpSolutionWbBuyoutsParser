@@ -75,7 +75,7 @@ namespace ZpSolutionWbBuyoutsParser.OrdersManager
                 LastCheck = DateTime.Now.AddHours(3),
                 LastUpdate = DateTime.Now.AddHours(3),
                 OrderDate = activeOrder.OrderDate.AddHours(3),
-                Title = activeOrder.Name,
+                Title = activeOrder.Title,
                 Price = activeOrder.Price,
                 ProductId = activeOrder.ProductId,
                 ReciveDate = activeOrder.ExpireDate,
