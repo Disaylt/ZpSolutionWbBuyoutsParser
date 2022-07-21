@@ -93,6 +93,12 @@
     <Compile Include="Models\Json\ArchiveProductModel.cs" />
     <Compile Include="Models\Json\DeliveryPointInfoModel.cs" />
     <Compile Include="Models\Json\MongoSettingsModel.cs" />
+    <Compile Include="Mongo\DatabaseFactory\DatabaseConnector.cs" />
+    <Compile Include="Mongo\DatabaseFactory\MongoDatabase.cs" />
+    <Compile Include="Mongo\DatabaseFactory\TestConnector.cs" />
+    <Compile Include="Mongo\DatabaseFactory\TestDatabase.cs" />
+    <Compile Include="Mongo\DatabaseFactory\WbBuyoutsConnector.cs" />
+    <Compile Include="Mongo\DatabaseFactory\WbBuyoutsDatabase.cs" />
     <Compile Include="Mongo\MongoConnector.cs" />
     <Compile Include="Mongo\MongoSettings.cs" />
     <Compile Include="Mongo\Tests\TestDatabase.cs" />
@@ -157,5 +163,7 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Mongo\Collections\" />
+  </ItemGroup>
 </Project>

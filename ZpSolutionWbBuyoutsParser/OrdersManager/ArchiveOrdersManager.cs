@@ -20,6 +20,7 @@ namespace ZpSolutionWbBuyoutsParser.OrdersManager
         private readonly WbProductsCollection _productCollection;
         private readonly IOrderArchiveStatusConverter _archiveOrderStatusConverter;
         private readonly ZennoPosterProfile _zennoPosterProfile;
+        private readonly DateTime _minDateForWrite;
 
         public ArchiveOrdersManager(WbAccountOrdersParser ordersParser, ZennoPosterProfile zennoPosterProfile, IOrderArchiveStatusConverter orderArchiveStatusConverter)
         {
@@ -27,6 +28,7 @@ namespace ZpSolutionWbBuyoutsParser.OrdersManager
             _zennoPosterProfile = zennoPosterProfile;
             _archiveOrderStatusConverter = orderArchiveStatusConverter;
             _productCollection = new WbProductsCollection();
+            _minDateForWrite = DateTime.Now.AddDays(-90);
         }
 
         public void UpdateOrdersData()
@@ -93,8 +95,7 @@ namespace ZpSolutionWbBuyoutsParser.OrdersManager
 
         private bool ProductSuitableForDb(ArchiveProductModel archiveProduct)
         {
-            DateTime writeDate = DateTime.Now.AddDays(-90);
-            if(archiveProduct.OrderDate > writeDate)
+            if(archiveProduct.OrderDate > _minDateForWrite)
             {
                 return true;
             }
