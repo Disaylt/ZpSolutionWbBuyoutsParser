@@ -50,39 +50,45 @@ namespace ZpSolutionWbBuyoutsParser.OrdersManager
                 }
                 else
                 {
-                    CreateNewArchiveProduct(archiveProduct);
+                    AddNewProduct(archiveProduct);
                 }
             }
         }
 
-        private void CreateNewArchiveProduct(ArchiveProductModel archiveProduct)
+        private void AddNewProduct(ArchiveProductModel archiveProduct)
         {
-            if(ProductSuitableForDb(archiveProduct))
+            if (ProductSuitableForDb(archiveProduct))
             {
-                string currentStatus = _archiveOrderStatusConverter.GetDbFormatStatus(archiveProduct.Status);
-                ProductModel productModel = new ProductModel
-                {
-                    Address = null,
-                    IsActive = true,
-                    Brand = archiveProduct.Brand,
-                    BuyoutsDate = archiveProduct.OrderDate,
-                    CancelDate = null,
-                    Code = string.Empty,
-                    LastCheck = DateTime.Now,
-                    LastUpdate = DateTime.Now,
-                    OrderDate = archiveProduct.OrderDate,
-                    Title = archiveProduct.Name,
-                    Price = archiveProduct.Price,
-                    ProductId = archiveProduct.ProductId,
-                    ReciveDate = string.Empty,
-                    ReviewDate = null,
-                    ReviewExists = false,
-                    RID = archiveProduct.RId,
-                    Session = _zennoPosterProfile.SessionName,
-                    Status = currentStatus
-                };
-                _productCollection.Insert(productModel);
+                var newProduct = CreateNewArchiveProduct(archiveProduct);
+                _productCollection.Insert(newProduct);
             }
+        }
+
+        private ProductModel CreateNewArchiveProduct(ArchiveProductModel archiveProduct)
+        {
+            string currentStatus = _archiveOrderStatusConverter.GetDbFormatStatus(archiveProduct.Status);
+            ProductModel productModel = new ProductModel
+            {
+                Address = null,
+                IsActive = true,
+                Brand = archiveProduct.Brand,
+                BuyoutsDate = archiveProduct.OrderDate,
+                CancelDate = null,
+                Code = string.Empty,
+                LastCheck = DateTime.Now.AddHours(3),
+                LastUpdate = DateTime.Now.AddHours(3),
+                OrderDate = archiveProduct.OrderDate.AddHours(3),
+                Title = archiveProduct.Name,
+                Price = archiveProduct.Price,
+                ProductId = archiveProduct.ProductId,
+                ReciveDate = string.Empty,
+                ReviewDate = null,
+                ReviewExists = false,
+                RID = archiveProduct.RId,
+                Session = _zennoPosterProfile.SessionName,
+                Status = currentStatus
+            };
+            return productModel;
         }
 
         private bool ProductSuitableForDb(ArchiveProductModel archiveProduct)

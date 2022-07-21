@@ -28,9 +28,18 @@ namespace ZpSolutionWbBuyoutsParser.Models.Json
         public string TrackingStatus { get; set; }
 
         [JsonProperty("readyToReceiveToday")]
-        public bool ReadyToReceiveToday { get; set; }
+        public bool IsReadyToReceiveToday { get; set; }
 
         [JsonProperty("brand")]
-        public bool Brand { get; set; }
+        public string Brand { get; set; }
+
+        [JsonProperty("expireDate")]
+        public string ExpireDate { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("code1S")]
+        public int ProductId { get; set; }
     }
 }

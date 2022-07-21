@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZpSolutionWbBuyoutsParser.Models.Bson.WB;
+using ZpSolutionWbBuyoutsParser.Models.Json;
 using ZpSolutionWbBuyoutsParser.Mongo;
 using ZpSolutionWbBuyoutsParser.Parser;
 using ZpSolutionWbBuyoutsParser.WbStorage;
@@ -28,18 +30,62 @@ namespace ZpSolutionWbBuyoutsParser.OrdersManager
         public void UpdateOrdersData()
         {
             var orders = _orderParser.GetActiveOrders();
-            foreach(var activeProduct in orders.ActiveOrders)
+            foreach (var currentOrder in orders.ActiveOrders)
             {
-                var dbProduct = _productCollection.FindProduct(activeProduct.RId);
+                var dbProduct = _productCollection.FindProduct(currentOrder.RId);
                 if(dbProduct != null)
                 {
-                    dbProduct.Status = activeProduct.
+                    dbProduct.Status = _orderActiveStatusConverter.GetDbFormatStatus(currentOrder.IsReadyToReceiveToday);
+                    dbProduct.Code = orders.PrivateCode;
+                    dbProduct.ReciveDate = currentOrder.ExpireDate;
+                    _productCollection.Replace(dbProduct);
                 }
                 else
                 {
-
+                    var newProduct = CreateNewActiveProduct(currentOrder, orders);
+                    _productCollection.Insert(newProduct);
                 }
             }
+        }
+
+        private DeliveryPointInfoModel ChooseDeliveryPoint(ActiveOrderModel activeOrder, Dictionary<string, DeliveryPointInfoModel> deliveryPoints)
+        {
+            if(deliveryPoints.ContainsKey(activeOrder.LocationId))
+            {
+                return deliveryPoints[activeOrder.LocationId];
+            }
+            else
+            {
+                return new DeliveryPointInfoModel();
+            }
+        }
+
+        private ProductModel CreateNewActiveProduct(ActiveOrderModel activeOrder, ActiveOrdersStorageModel ordersStore)
+        {
+            string currentStatus = _orderActiveStatusConverter.GetDbFormatStatus(activeOrder.IsReadyToReceiveToday);
+            string address = ChooseDeliveryPoint(activeOrder, ordersStore.DeliveryPoints).Address;
+            ProductModel productModel = new ProductModel
+            {
+                Address = address,
+                IsActive = true,
+                Brand = activeOrder.Brand,
+                BuyoutsDate = activeOrder.OrderDate,
+                CancelDate = null,
+                Code = ordersStore.PrivateCode,
+                LastCheck = DateTime.Now.AddHours(3),
+                LastUpdate = DateTime.Now.AddHours(3),
+                OrderDate = activeOrder.OrderDate.AddHours(3),
+                Title = activeOrder.Name,
+                Price = activeOrder.Price,
+                ProductId = activeOrder.ProductId,
+                ReciveDate = activeOrder.ExpireDate,
+                ReviewDate = null,
+                ReviewExists = false,
+                RID = activeOrder.RId,
+                Session = _zennoPosterProfile.SessionName,
+                Status = currentStatus
+            };
+            return productModel;
         }
     }
 }

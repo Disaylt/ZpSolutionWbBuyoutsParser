@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ZpSolutionWbBuyoutsParser.Models.Json
 {
-    internal class ActiveOrdersModel
+    internal class ActiveOrdersStorageModel
     {
         [JsonProperty("positions")]
         public List<ActiveOrderModel> ActiveOrders { get; set; } = new List<ActiveOrderModel>();
