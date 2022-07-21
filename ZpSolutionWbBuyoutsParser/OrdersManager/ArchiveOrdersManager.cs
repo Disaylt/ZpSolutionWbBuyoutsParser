@@ -18,15 +18,15 @@ namespace ZpSolutionWbBuyoutsParser.OrdersManager
     {
         private readonly WbAccountOrdersParser _orderParser;
         private readonly WbProductsCollection _productCollection;
-        private readonly IOrderStatusConverter _archiveOrderStatusConverter;
+        private readonly IOrderArchiveStatusConverter _archiveOrderStatusConverter;
         private readonly ZennoPosterProfile _zennoPosterProfile;
 
-        public ArchiveOrdersManager(WbAccountOrdersParser ordersParser, ZennoPosterProfile zennoPosterProfile)
+        public ArchiveOrdersManager(WbAccountOrdersParser ordersParser, ZennoPosterProfile zennoPosterProfile, IOrderArchiveStatusConverter orderArchiveStatusConverter)
         {
             _orderParser = ordersParser;
             _zennoPosterProfile = zennoPosterProfile;
+            _archiveOrderStatusConverter = orderArchiveStatusConverter;
             _productCollection = new WbProductsCollection();
-            _archiveOrderStatusConverter = new ArchiveOrderStatusConverterV1();
         }
 
         public void UpdateOrdersData()

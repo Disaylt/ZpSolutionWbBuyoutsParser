@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZpSolutionWbBuyoutsParser.WbStorage
 {
-    internal interface IOrderStatusConverter
+    internal interface IOrderArchiveStatusConverter
     {
         string GetDbFormatStatus(string orderStatus);
     }

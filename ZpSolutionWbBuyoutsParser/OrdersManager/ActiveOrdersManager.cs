@@ -15,11 +15,13 @@ namespace ZpSolutionWbBuyoutsParser.OrdersManager
         private readonly WbAccountOrdersParser _orderParser;
         private readonly WbProductsCollection _productCollection;
         private readonly ZennoPosterProfile _zennoPosterProfile;
+        private readonly IOrderActiveStatusConverter _orderActiveStatusConverter;
 
-        public ActiveOrdersManager(WbAccountOrdersParser ordersParser, ZennoPosterProfile zennoPosterProfile)
+        public ActiveOrdersManager(WbAccountOrdersParser ordersParser, ZennoPosterProfile zennoPosterProfile, IOrderActiveStatusConverter orderActiveStatusConverter)
         {
             _orderParser = ordersParser;
             _zennoPosterProfile = zennoPosterProfile;
+            _orderActiveStatusConverter = orderActiveStatusConverter;
             _productCollection = new WbProductsCollection();
         }
 

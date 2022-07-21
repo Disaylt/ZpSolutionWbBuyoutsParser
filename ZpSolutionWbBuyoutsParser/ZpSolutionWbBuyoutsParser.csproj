@@ -109,7 +109,9 @@
     <Compile Include="Parser\WbHeaderInstaller.cs" />
     <Compile Include="Parser\ZpHttpClient.cs" />
     <Compile Include="Proxy\RussianProxyStream.cs" />
-    <Compile Include="WbStorage\IOrderStatusConverter.cs" />
+    <Compile Include="WbStorage\ActiveOrderStatusConverterV1.cs" />
+    <Compile Include="WbStorage\IOrderActiveStatusConverter.cs" />
+    <Compile Include="WbStorage\IOrderArchiveStatusConverter.cs" />
     <Compile Include="WbStorage\ArchiveOrderStatusConverterV1.cs" />
     <Compile Include="WorkSettings.cs" />
     <Compile Include="JsonFile.cs" />

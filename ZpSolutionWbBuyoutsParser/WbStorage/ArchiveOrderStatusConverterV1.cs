@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZpSolutionWbBuyoutsParser.WbStorage
 {
-    internal class ArchiveOrderStatusConverterV1 : IOrderStatusConverter
+    internal class ArchiveOrderStatusConverterV1 : IOrderArchiveStatusConverter
     {
         private readonly static string[] _rejectedStatuses = new string[] { "rejected", "order_rejected" };
         private readonly static string[] _refundStatuses = new string[] { "refund" };
