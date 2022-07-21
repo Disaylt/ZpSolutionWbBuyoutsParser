@@ -23,5 +23,14 @@ namespace ZpSolutionWbBuyoutsParser.Models.Json
 
         [JsonProperty("name")]
         public string Title { get; set; }
+
+        [JsonProperty("trackingStatus")]
+        public string TrackingStatus { get; set; }
+
+        [JsonProperty("readyToReceiveToday")]
+        public bool ReadyToReceiveToday { get; set; }
+
+        [JsonProperty("brand")]
+        public bool Brand { get; set; }
     }
 }

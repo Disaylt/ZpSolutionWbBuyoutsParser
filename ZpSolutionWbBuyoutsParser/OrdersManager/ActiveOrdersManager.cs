@@ -26,6 +26,18 @@ namespace ZpSolutionWbBuyoutsParser.OrdersManager
         public void UpdateOrdersData()
         {
             var orders = _orderParser.GetActiveOrders();
+            foreach(var activeProduct in orders.ActiveOrders)
+            {
+                var dbProduct = _productCollection.FindProduct(activeProduct.RId);
+                if(dbProduct != null)
+                {
+                    dbProduct.Status = activeProduct.
+                }
+                else
+                {
+
+                }
+            }
         }
     }
 }
