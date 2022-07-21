@@ -66,7 +66,7 @@ namespace ZpSolutionWbBuyoutsParser
                 }
                 else
                 {
-                    throw new Exception("uqeue sessions is empty");
+                    throw new Exception("Queue sessions is empty");
                 }
             }
         }

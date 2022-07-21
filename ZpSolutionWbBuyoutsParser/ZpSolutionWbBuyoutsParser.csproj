@@ -46,6 +46,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SmartProxyV2_ZennoLabVersion, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\SmartProxyV2_ZennoLabVersion.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -83,24 +87,44 @@
     <Compile Include="AccountsWorkQueue.cs" />
     <Compile Include="Models\Bson\WB\PlanningModel.cs" />
     <Compile Include="Models\Bson\WB\ProductModel.cs" />
+    <Compile Include="Models\Http\RequestContentModel.cs" />
+    <Compile Include="Models\Json\ActiveOrderModel.cs" />
+    <Compile Include="Models\Json\ActiveOrdersStorageModel.cs" />
+    <Compile Include="Models\Json\ArchiveProductModel.cs" />
+    <Compile Include="Models\Json\DeliveryPointInfoModel.cs" />
     <Compile Include="Models\Json\MongoSettingsModel.cs" />
+    <Compile Include="Mongo\DatabaseFactoryStorage\DatabaseFactory.cs" />
+    <Compile Include="Mongo\DatabaseFactoryStorage\DatabaseConnector.cs" />
+    <Compile Include="Mongo\DatabaseFactoryStorage\TestDatabaseFactory.cs" />
+    <Compile Include="Mongo\DatabaseFactoryStorage\TestDatabaseConnector.cs" />
+    <Compile Include="Mongo\DatabaseFactoryStorage\WbBuyoutsDatabaseFactory.cs" />
+    <Compile Include="Mongo\DatabaseFactoryStorage\WbBuyoutsDatabaseConnector.cs" />
     <Compile Include="Mongo\MongoConnector.cs" />
     <Compile Include="Mongo\MongoSettings.cs" />
-    <Compile Include="Mongo\Tests\TestDatabase.cs" />
-    <Compile Include="Mongo\Tests\MongoProductTest.cs" />
     <Compile Include="Mongo\WbAccountsCollection.cs" />
-    <Compile Include="Mongo\WbBuyoutsDatabase.cs" />
     <Compile Include="Mongo\WbPlanningCollection.cs" />
     <Compile Include="Mongo\WbProductsCollection.cs" />
+    <Compile Include="OrdersManager\ActiveOrdersManager.cs" />
+    <Compile Include="OrdersManager\ArchiveOrdersManager.cs" />
+    <Compile Include="OrdersManager\IOrdersManager.cs" />
     <Compile Include="Parser\HttpRequestSender.cs" />
+    <Compile Include="Parser\IHeaderInstaller.cs" />
+    <Compile Include="Parser\WbAccountOrdersParser.cs" />
+    <Compile Include="Parser\WbHeaderInstaller.cs" />
     <Compile Include="Parser\ZpHttpClient.cs" />
+    <Compile Include="Proxy\RussianProxyStream.cs" />
+    <Compile Include="WbStorage\ActiveOrderStatusConverterV1.cs" />
+    <Compile Include="WbStorage\IOrderActiveStatusConverter.cs" />
+    <Compile Include="WbStorage\IOrderArchiveStatusConverter.cs" />
+    <Compile Include="WbStorage\ArchiveOrderStatusConverterV1.cs" />
     <Compile Include="WorkSettings.cs" />
     <Compile Include="JsonFile.cs" />
     <Compile Include="Models\Json\ProjectSettingsModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ZennoPoster\ZpProfile.cs" />
+    <Compile Include="ZennoPoster\ZennoCookieContainer.cs" />
+    <Compile Include="ZennoPoster\ZennoPosterProfile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="ValidateZennoPosterDllPath" BeforeTargets="BeforeBuild">
@@ -133,4 +157,8 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup />
 </Project>

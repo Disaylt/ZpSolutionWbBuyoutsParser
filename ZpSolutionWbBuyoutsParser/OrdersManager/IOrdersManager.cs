@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZpSolutionWbBuyoutsParser.ZennoPoster
+namespace ZpSolutionWbBuyoutsParser.OrdersManager
 {
-    internal class ZpProfile
+    internal interface IOrdersManager
     {
-        public ZpProfile(string name)
-        {
-
-        }
+        void UpdateOrdersData();
     }
 }
