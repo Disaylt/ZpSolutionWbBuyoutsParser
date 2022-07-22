@@ -29,7 +29,6 @@ namespace ZpSolutionWbBuyoutsParser
     {
         private static readonly object _locker = new object();
         private IZennoPosterProjectModel _project;
-        private Instance _instance;
 
         /// <summary>
         /// Метод для запуска выполнения скрипта
@@ -39,14 +38,16 @@ namespace ZpSolutionWbBuyoutsParser
         /// <returns>Код выполнения скрипта</returns>
         public int Execute(Instance instance, IZennoPosterProjectModel project)
         {
-            _instance = instance;
             _project = project;
 
             ProjectConfig.Initialize(project);
             AccountsWorkQueue accountsWorkQueue = AccountsWorkQueue.Instance;
             StartProject(accountsWorkQueue);
             ZennoPosterProfile zpProfile = LoadProfile(accountsWorkQueue);
-            StartParsingOrders(zpProfile);
+            if(zpProfile.IsLoad)
+            {
+                StartParsingOrders(zpProfile);
+            }
             return 0;
         }
 

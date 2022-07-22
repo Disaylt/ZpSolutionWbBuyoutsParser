@@ -16,6 +16,7 @@ namespace ZpSolutionWbBuyoutsParser
         private List<string> _sessions;
         private const string _fileNameSessionList = "sessions.json";
         private readonly WorkSettings _workSettings;
+        private readonly ProjectConfig _projectConfig;
         private readonly ProjectSettingsModel _projectSettings;
         private readonly object  _lock = new object();
 
@@ -23,6 +24,7 @@ namespace ZpSolutionWbBuyoutsParser
 
         private AccountsWorkQueue()
         {
+            _projectConfig = ProjectConfig.GetInstance();
             _workSettings = new WorkSettings();
             _projectSettings = _workSettings.GetSettings();
             _sessions = LoadFromJsonFile();
@@ -76,7 +78,7 @@ namespace ZpSolutionWbBuyoutsParser
             lock(_lock)
             {
                 _sessions = CreateQueueSessions();
-                JsonFile.Save($"{ProjectConfig.GetInstance().ProjectPath}{_fileNameSessionList}", _sessions);
+                JsonFile.Save($"{_projectConfig.ProjectPath}{_fileNameSessionList}", _sessions);
                 UpdateWorkDate();
             }
         }
@@ -89,7 +91,7 @@ namespace ZpSolutionWbBuyoutsParser
                 {
                     string session = _sessions.First();
                     _sessions.Remove(session);
-                    JsonFile.Save($"{ProjectConfig.GetInstance().ProjectPath}{_fileNameSessionList}", _sessions);
+                    JsonFile.Save($"{_projectConfig.ProjectPath}{_fileNameSessionList}", _sessions);
                     return session;
                 }
                 else
@@ -115,7 +117,7 @@ namespace ZpSolutionWbBuyoutsParser
 
         private List<string> LoadFromJsonFile()
         {
-            string pathFile = $"{ProjectConfig.GetInstance().ProjectPath}{_fileNameSessionList}";
+            string pathFile = $"{_projectConfig.ProjectPath}{_fileNameSessionList}";
             if (File.Exists(pathFile))
             {
                 List<string> sessions = JsonFile.Load<List<string>>(pathFile);
