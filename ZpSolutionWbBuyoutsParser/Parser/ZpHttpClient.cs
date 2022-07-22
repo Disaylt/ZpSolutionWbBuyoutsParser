@@ -16,7 +16,7 @@ namespace ZpSolutionWbBuyoutsParser.Parser
         public string UserAgent { get; }
         public ZpHttpClient(IProfile profile, IWebProxy proxy)
         {
-            CookieContainer = new WbZennoCookieContainer(profile.CookieContainer);
+            CookieContainer = new ZennoCookieContainer(profile.CookieContainer);
             UseProxy = true;
             Proxy = proxy;
             UserAgent = profile.UserAgent;
