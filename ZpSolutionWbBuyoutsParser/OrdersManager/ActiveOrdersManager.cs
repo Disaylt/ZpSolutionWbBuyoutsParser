@@ -10,6 +10,7 @@ using ZpSolutionWbBuyoutsParser.Mongo.CollectionStorage;
 using ZpSolutionWbBuyoutsParser.Parser;
 using ZpSolutionWbBuyoutsParser.WbStorage;
 using ZpSolutionWbBuyoutsParser.ZennoPosterProjectObjects;
+using MongoDB.Bson;
 
 namespace ZpSolutionWbBuyoutsParser.OrdersManager
 {
@@ -70,7 +71,7 @@ namespace ZpSolutionWbBuyoutsParser.OrdersManager
                 Address = address,
                 IsActive = true,
                 Brand = activeOrder.Brand,
-                BuyoutsDate = null,
+                BuyoutsDate = BsonNull.Value,
                 CancelDate = null,
                 Code = ordersStore.PrivateCode,
                 LastCheck = DateTime.Now.AddHours(3),
