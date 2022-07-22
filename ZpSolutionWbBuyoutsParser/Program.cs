@@ -17,7 +17,7 @@ using ZpSolutionWbBuyoutsParser.OrdersManager;
 using ZpSolutionWbBuyoutsParser.Parser;
 using ZpSolutionWbBuyoutsParser.Proxy;
 using ZpSolutionWbBuyoutsParser.WbStorage;
-using ZpSolutionWbBuyoutsParser.ZennoPoster;
+using ZpSolutionWbBuyoutsParser.ZennoPosterProjectObjects;
 
 namespace ZpSolutionWbBuyoutsParser
 {

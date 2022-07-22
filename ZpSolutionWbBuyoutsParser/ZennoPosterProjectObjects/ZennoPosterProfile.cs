@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZennoLab.InterfacesLibrary.ProjectModel.Collections;
 
-namespace ZpSolutionWbBuyoutsParser.ZennoPoster
+namespace ZpSolutionWbBuyoutsParser.ZennoPosterProjectObjects
 {
     internal class ZennoPosterProfile
     {

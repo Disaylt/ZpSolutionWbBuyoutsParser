@@ -9,7 +9,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using ZpSolutionWbBuyoutsParser.WbStorage;
 using ZpSolutionWbBuyoutsParser.Models.Bson.WB;
-using ZpSolutionWbBuyoutsParser.ZennoPoster;
+using ZpSolutionWbBuyoutsParser.ZennoPosterProjectObjects;
 using ZpSolutionWbBuyoutsParser.Models.Json;
 using ZpSolutionWbBuyoutsParser.Mongo.CollectionStorage;
 

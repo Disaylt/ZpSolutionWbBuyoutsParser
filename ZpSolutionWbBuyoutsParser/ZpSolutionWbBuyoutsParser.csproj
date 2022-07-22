@@ -123,8 +123,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="ProjectConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ZennoPoster\ZennoCookieContainer.cs" />
-    <Compile Include="ZennoPoster\ZennoPosterProfile.cs" />
+    <Compile Include="ZennoPosterProjectObjects\WbZennoCookieContainer.cs" />
+    <Compile Include="ZennoPosterProjectObjects\ZennoPosterProfile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="ValidateZennoPosterDllPath" BeforeTargets="BeforeBuild">

@@ -9,7 +9,7 @@ using ZpSolutionWbBuyoutsParser.Mongo;
 using ZpSolutionWbBuyoutsParser.Mongo.CollectionStorage;
 using ZpSolutionWbBuyoutsParser.Parser;
 using ZpSolutionWbBuyoutsParser.WbStorage;
-using ZpSolutionWbBuyoutsParser.ZennoPoster;
+using ZpSolutionWbBuyoutsParser.ZennoPosterProjectObjects;
 
 namespace ZpSolutionWbBuyoutsParser.OrdersManager
 {
