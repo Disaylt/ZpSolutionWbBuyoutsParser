@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountsWorkQueue.cs" />
+    <Compile Include="CustomExceptions\EmptyQueueException.cs" />
     <Compile Include="Models\Bson\WB\PlanningModel.cs" />
     <Compile Include="Models\Bson\WB\ProductModel.cs" />
     <Compile Include="Models\Http\RequestContentModel.cs" />
