@@ -27,6 +27,21 @@ namespace ZpSolutionWbBuyoutsParser
             _sessions = LoadFromJsonFile();
         }
 
+        public int Count
+        {
+            get
+            {
+                if( _sessions == null )
+                {
+                    return 0;
+                }
+                else
+                {
+                    return _sessions.Count;
+                }
+            }
+        }
+
         public static AccountsWorkQueue Instance
         {
             get
@@ -39,17 +54,29 @@ namespace ZpSolutionWbBuyoutsParser
             }
         }
 
-        public void SkipOrCreateQueue()
+        public bool IsFirstStart()
         {
             lock(_lock)
             {
                 DateTime lastWorkDate = _projectSettings.LastWorkDate;
-                if(lastWorkDate.Date != DateTime.Now.Date)
+                if (lastWorkDate.Date != DateTime.Now.Date)
                 {
-                    _sessions = CreateQueueSessions();
-                    JsonFile.Save($"{ProjectConfig.GetInstance().ProjectPath}{_fileNameSessionList}", _sessions);
-                    UpdateWorkDate();
+                    return true;
                 }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public void CreateQueue()
+        {
+            lock(_lock)
+            {
+                _sessions = CreateQueueSessions();
+                JsonFile.Save($"{ProjectConfig.GetInstance().ProjectPath}{_fileNameSessionList}", _sessions);
+                UpdateWorkDate();
             }
         }
 

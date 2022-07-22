@@ -26,6 +26,8 @@ namespace ZpSolutionWbBuyoutsParser
     /// </summary>
     public class Program : IZennoExternalCode
     {
+        private static readonly object _locker = new object();
+
         /// <summary>
         /// Метод для запуска выполнения скрипта
         /// </summary>
@@ -36,11 +38,9 @@ namespace ZpSolutionWbBuyoutsParser
         {
             ProjectConfig.Initialize(project);
             AccountsWorkQueue accountsWorkQueue = AccountsWorkQueue.Instance;
-            accountsWorkQueue.SkipOrCreateQueue();
-            string sessionName = accountsWorkQueue.TakeSession();
-            ZennoPosterProfile zennoPosterProfile = new ZennoPosterProfile(project.Profile, sessionName);
-            zennoPosterProfile.Load();
-            StartParsingOrders(zennoPosterProfile);
+            StartProject(accountsWorkQueue, project);
+            ZennoPosterProfile profile = LoadProfile(accountsWorkQueue, project.Profile);
+            StartParsingOrders(profile);
             return 0;
         }
 
@@ -66,6 +66,28 @@ namespace ZpSolutionWbBuyoutsParser
             IOrderActiveStatusConverter orderActiveStatusConverter = new ActiveOrderStatusConverterV1();
             IOrdersManager activeOrdersManager = new ActiveOrdersManager(wbAccountOrdersParser, zpProfile, orderActiveStatusConverter);
             activeOrdersManager.UpdateOrdersData();
+        }
+
+        private ZennoPosterProfile LoadProfile(AccountsWorkQueue accountsWorkQueue, IProfile profile)
+        {
+            string sessionName = accountsWorkQueue.TakeSession();
+            ZennoPosterProfile zennoPosterProfile = new ZennoPosterProfile(profile, sessionName);
+            zennoPosterProfile.Load();
+            return zennoPosterProfile;
+        }
+
+        private void StartProject(AccountsWorkQueue accountsWorkQueue, IZennoPosterProjectModel project)
+        {
+            lock(_locker)
+            {
+                if(accountsWorkQueue.IsFirstStart())
+                {
+                    accountsWorkQueue.CreateQueue();
+                    ZennoPosterAplicationHandler zennoPoster = new ZennoPosterAplicationHandler(project);
+                    int numTries = Convert.ToInt32(1.5 * accountsWorkQueue.Count);
+                    zennoPoster.SetTries(numTries);
+                }
+            }
         }
     }
 }
