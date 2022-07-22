@@ -37,7 +37,7 @@ namespace ZpSolutionWbBuyoutsParser
             ProjectConfig.Initialize(project);
             AccountsWorkQueue accountsWorkQueue = AccountsWorkQueue.Instance;
             accountsWorkQueue.SkipOrCreateQueue();
-            string sessionName = accountsWorkQueue.TakeSession();
+            string sessionName = "colounaber1970";//accountsWorkQueue.TakeSession();
             ZennoPosterProfile zennoPosterProfile = new ZennoPosterProfile(project.Profile, sessionName);
             zennoPosterProfile.Load();
             StartParsingOrders(zennoPosterProfile);

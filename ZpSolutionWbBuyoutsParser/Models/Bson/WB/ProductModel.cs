@@ -20,7 +20,7 @@ namespace ZpSolutionWbBuyoutsParser.Models.Bson.WB
         public DateTime OrderDate { get; set; }
 
         [BsonElement("buyout_date")]
-        public DateTime BuyoutsDate { get; set; }
+        public BsonDateTime BuyoutsDate { get; set; }
 
         [BsonElement("status")]
         public string Status { get; set; }
@@ -50,10 +50,10 @@ namespace ZpSolutionWbBuyoutsParser.Models.Bson.WB
         public DateTime LastUpdate { get; set; }
 
         [BsonElement("review_date")]
-        public object ReviewDate { get; set; }
+        public BsonValue ReviewDate { get; set; }
 
         [BsonElement("cancel_date")]
-        public object CancelDate { get; set; }
+        public BsonValue CancelDate { get; set; }
 
         [BsonElement("code")]
         public string Code { get; set; }

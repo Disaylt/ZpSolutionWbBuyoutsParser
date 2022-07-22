@@ -36,6 +36,9 @@ namespace ZpSolutionWbBuyoutsParser.Models.Json
         [JsonProperty("expireDate")]
         public string ExpireDate { get; set; }
 
+        [JsonProperty("receiveDate")]
+        public string ReceiveDate { get; set; }
+
         [JsonProperty("code1S")]
         public int ProductId { get; set; }
     }
