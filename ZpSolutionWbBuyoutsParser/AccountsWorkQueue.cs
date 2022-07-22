@@ -12,14 +12,13 @@ namespace ZpSolutionWbBuyoutsParser
 {
     internal class AccountsWorkQueue
     {
-        private List<string> _sessions { get; set; }
-
+        private List<string> _sessions;
         private const string _fileNameSessionList = "sessions.json";
         private readonly WorkSettings _workSettings;
         private readonly ProjectSettingsModel _projectSettings;
+        private readonly object  _lock = new object();
 
         private static AccountsWorkQueue _instance;
-        private readonly object  _lock = new object();
 
         private AccountsWorkQueue()
         {

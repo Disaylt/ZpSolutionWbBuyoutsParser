@@ -41,8 +41,7 @@ namespace ZpSolutionWbBuyoutsParser
             ZennoPosterProfile zennoPosterProfile = new ZennoPosterProfile(project.Profile, sessionName);
             zennoPosterProfile.Load();
             StartParsingOrders(zennoPosterProfile);
-            int executionResult = 0;
-            return executionResult;
+            return 0;
         }
 
         private void StartParsingOrders(ZennoPosterProfile zpProfile)
