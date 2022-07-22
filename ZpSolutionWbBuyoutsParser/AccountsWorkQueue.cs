@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZpSolutionWbBuyoutsParser.CustomExceptions;
 using ZpSolutionWbBuyoutsParser.Models.Json;
 using ZpSolutionWbBuyoutsParser.Mongo;
 using ZpSolutionWbBuyoutsParser.Mongo.CollectionStorage;
@@ -93,7 +94,7 @@ namespace ZpSolutionWbBuyoutsParser
                 }
                 else
                 {
-                    throw new Exception("Queue sessions is empty");
+                    throw new EmptyQueueException("Queue sessions is empty");
                 }
             }
         }

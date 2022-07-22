@@ -12,6 +12,7 @@ using ZennoLab.Emulation;
 using ZennoLab.InterfacesLibrary.ProjectModel;
 using ZennoLab.InterfacesLibrary.ProjectModel.Collections;
 using ZennoLab.InterfacesLibrary.ProjectModel.Enums;
+using ZpSolutionWbBuyoutsParser.CustomExceptions;
 using ZpSolutionWbBuyoutsParser.Models.Json;
 using ZpSolutionWbBuyoutsParser.OrdersManager;
 using ZpSolutionWbBuyoutsParser.Parser;
@@ -27,6 +28,8 @@ namespace ZpSolutionWbBuyoutsParser
     public class Program : IZennoExternalCode
     {
         private static readonly object _locker = new object();
+        private IZennoPosterProjectModel _project;
+        private Instance _instance;
 
         /// <summary>
         /// Метод для запуска выполнения скрипта
@@ -36,11 +39,14 @@ namespace ZpSolutionWbBuyoutsParser
         /// <returns>Код выполнения скрипта</returns>
         public int Execute(Instance instance, IZennoPosterProjectModel project)
         {
+            _instance = instance;
+            _project = project;
+
             ProjectConfig.Initialize(project);
             AccountsWorkQueue accountsWorkQueue = AccountsWorkQueue.Instance;
-            StartProject(accountsWorkQueue, project);
-            ZennoPosterProfile profile = LoadProfile(accountsWorkQueue, project.Profile);
-            StartParsingOrders(profile);
+            StartProject(accountsWorkQueue);
+            ZennoPosterProfile zpProfile = LoadProfile(accountsWorkQueue);
+            StartParsingOrders(zpProfile);
             return 0;
         }
 
@@ -68,22 +74,31 @@ namespace ZpSolutionWbBuyoutsParser
             activeOrdersManager.UpdateOrdersData();
         }
 
-        private ZennoPosterProfile LoadProfile(AccountsWorkQueue accountsWorkQueue, IProfile profile)
+        private ZennoPosterProfile LoadProfile(AccountsWorkQueue accountsWorkQueue)
         {
-            string sessionName = accountsWorkQueue.TakeSession();
-            ZennoPosterProfile zennoPosterProfile = new ZennoPosterProfile(profile, sessionName);
-            zennoPosterProfile.Load();
+            ZennoPosterProfile zennoPosterProfile = new ZennoPosterProfile(_project.Profile);
+            try
+            {
+                string sessionName = accountsWorkQueue.TakeSession();
+                zennoPosterProfile.Load(sessionName);
+                return zennoPosterProfile;
+            }
+            catch (EmptyQueueException)
+            {
+                ZennoPosterAplicationHandler zennoPoster = new ZennoPosterAplicationHandler(_project);
+                zennoPoster.SetTries(0);
+            }
             return zennoPosterProfile;
         }
 
-        private void StartProject(AccountsWorkQueue accountsWorkQueue, IZennoPosterProjectModel project)
+        private void StartProject(AccountsWorkQueue accountsWorkQueue)
         {
             lock(_locker)
             {
                 if(accountsWorkQueue.IsFirstStart())
                 {
                     accountsWorkQueue.CreateQueue();
-                    ZennoPosterAplicationHandler zennoPoster = new ZennoPosterAplicationHandler(project);
+                    ZennoPosterAplicationHandler zennoPoster = new ZennoPosterAplicationHandler(_project);
                     int numTries = Convert.ToInt32(1.5 * accountsWorkQueue.Count);
                     zennoPoster.SetTries(numTries);
                 }

@@ -9,21 +9,32 @@ namespace ZpSolutionWbBuyoutsParser.ZennoPosterProjectObjects
 {
     internal class ZennoPosterProfile
     {
-        public string SessionName { get; private set; }
+        public string SessionName { get; private set; } = string.Empty;
         public IProfile Profile { get; private set; }
+        public bool IsLoad { get; private set; }
 
         private readonly string _pathToZpProfiles;
 
-        public ZennoPosterProfile(IProfile profile, string sessionName)
+        public ZennoPosterProfile(IProfile profile)
         {
-            SessionName = sessionName;
             Profile = profile;
+            IsLoad = false;
             WorkSettings workSettings = new WorkSettings();
             _pathToZpProfiles = workSettings.GetSettings().PathToZpProfiles;
         }
-        public void Load()
+
+        public void Load(string sessionName)
         {
-            Profile.Load($"{_pathToZpProfiles}{SessionName}.zpprofile");
+            if(!IsLoad)
+            {
+                SessionName = sessionName;
+                Profile.Load($"{_pathToZpProfiles}{sessionName}.zpprofile");
+                IsLoad = true;
+            }
+            else
+            {
+                throw new Exception("Ыession already loaded");
+            }
         }
 
         public void Save()
