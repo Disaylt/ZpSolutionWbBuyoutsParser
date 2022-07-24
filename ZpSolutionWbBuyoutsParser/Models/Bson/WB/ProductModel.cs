@@ -20,7 +20,7 @@ namespace ZpSolutionWbBuyoutsParser.Models.Bson.WB
         public DateTime OrderDate { get; set; }
 
         [BsonElement("buyout_date")]
-        public DateTime BuyoutsDate { get; set; }
+        public BsonValue BuyoutsDate { get; set; }
 
         [BsonElement("status")]
         public string Status { get; set; }

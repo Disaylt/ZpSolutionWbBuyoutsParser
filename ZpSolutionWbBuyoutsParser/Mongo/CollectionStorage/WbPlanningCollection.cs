@@ -5,36 +5,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZpSolutionWbBuyoutsParser.Models.Bson.WB;
 using ZpSolutionWbBuyoutsParser.Mongo.DatabaseFactoryStorage;
 
-namespace ZpSolutionWbBuyoutsParser.Mongo
+namespace ZpSolutionWbBuyoutsParser.Mongo.CollectionStorage
 {
-    internal class WbAccountsCollection
+    internal class WbPlanningCollection
     {
-        private const string _name = "accounts";
+        private const string _name = "planning";
 
         private static IMongoCollection<BsonDocument> _mongoCollection;
 
-        public WbAccountsCollection()
+        public WbPlanningCollection()
         {
             if (_mongoCollection == null)
             {
-
                 DatabaseFactory databaseFactory = new WbBuyoutsDatabaseFactory();
                 var dbConnector = databaseFactory.GetDbConnector();
                 _mongoCollection = dbConnector.Database.GetCollection<BsonDocument>(_name);
             }
         }
 
-        public List<string> GetWorkingAccounts()
+        public List<string> GetUniqueAccountsForLastDays(int days)
         {
-            var filter = new BsonDocument("is_active", true);
-            List<string> accounts = _mongoCollection
+            DateTime startDate = DateTime.Now.AddDays(-1 * days);
+            var filter = Builders<BsonDocument>.Filter.Gt("date", startDate);
+            var planningRows = _mongoCollection
                 .Find(filter)
-                .ToList()
-                .Select(x => x["session"].AsString)
                 .ToList();
-            return accounts;
+            var uniqueSessions = planningRows
+                .Select(x => x["session"].AsString)
+                .Distinct()
+                .ToList();
+            return uniqueSessions;
         }
     }
 }

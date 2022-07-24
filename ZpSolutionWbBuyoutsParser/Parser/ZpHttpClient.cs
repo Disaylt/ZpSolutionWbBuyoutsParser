@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZennoLab.InterfacesLibrary.ProjectModel;
 using ZennoLab.InterfacesLibrary.ProjectModel.Collections;
-using ZpSolutionWbBuyoutsParser.ZennoPoster;
+using ZpSolutionWbBuyoutsParser.ZennoPosterProjectObjects;
 
 namespace ZpSolutionWbBuyoutsParser.Parser
 {

@@ -4,27 +4,45 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZpSolutionWbBuyoutsParser.CustomExceptions;
 using ZpSolutionWbBuyoutsParser.Models.Json;
 using ZpSolutionWbBuyoutsParser.Mongo;
+using ZpSolutionWbBuyoutsParser.Mongo.CollectionStorage;
 
 namespace ZpSolutionWbBuyoutsParser
 {
     internal class AccountsWorkQueue
     {
-        private List<string> _sessions { get; set; }
-
+        private List<string> _sessions;
         private const string _fileNameSessionList = "sessions.json";
         private readonly WorkSettings _workSettings;
+        private readonly ProjectConfig _projectConfig;
         private readonly ProjectSettingsModel _projectSettings;
+        private readonly object  _lock = new object();
 
         private static AccountsWorkQueue _instance;
-        private readonly object  _lock = new object();
 
         private AccountsWorkQueue()
         {
+            _projectConfig = ProjectConfig.GetInstance();
             _workSettings = new WorkSettings();
             _projectSettings = _workSettings.GetSettings();
             _sessions = LoadFromJsonFile();
+        }
+
+        public int Count
+        {
+            get
+            {
+                if( _sessions == null )
+                {
+                    return 0;
+                }
+                else
+                {
+                    return _sessions.Count;
+                }
+            }
         }
 
         public static AccountsWorkQueue Instance
@@ -39,17 +57,29 @@ namespace ZpSolutionWbBuyoutsParser
             }
         }
 
-        public void SkipOrCreateQueue()
+        public bool IsFirstStart()
         {
             lock(_lock)
             {
                 DateTime lastWorkDate = _projectSettings.LastWorkDate;
-                if(lastWorkDate.Date != DateTime.Now.Date)
+                if (lastWorkDate.Date != DateTime.Now.Date)
                 {
-                    _sessions = CreateQueueSessions();
-                    JsonFile.Save($"{ProjectConfig.GetInstance().ProjectPath}{_fileNameSessionList}", _sessions);
-                    UpdateWorkDate();
+                    return true;
                 }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public void CreateQueue()
+        {
+            lock(_lock)
+            {
+                _sessions = CreateQueueSessions();
+                JsonFile.Save($"{_projectConfig.ProjectPath}{_fileNameSessionList}", _sessions);
+                UpdateWorkDate();
             }
         }
 
@@ -61,12 +91,12 @@ namespace ZpSolutionWbBuyoutsParser
                 {
                     string session = _sessions.First();
                     _sessions.Remove(session);
-                    JsonFile.Save($"{ProjectConfig.GetInstance().ProjectPath}{_fileNameSessionList}", _sessions);
+                    JsonFile.Save($"{_projectConfig.ProjectPath}{_fileNameSessionList}", _sessions);
                     return session;
                 }
                 else
                 {
-                    throw new Exception("Queue sessions is empty");
+                    throw new EmptyQueueException("Queue sessions is empty");
                 }
             }
         }
@@ -87,7 +117,7 @@ namespace ZpSolutionWbBuyoutsParser
 
         private List<string> LoadFromJsonFile()
         {
-            string pathFile = $"{ProjectConfig.GetInstance().ProjectPath}{_fileNameSessionList}";
+            string pathFile = $"{_projectConfig.ProjectPath}{_fileNameSessionList}";
             if (File.Exists(pathFile))
             {
                 List<string> sessions = JsonFile.Load<List<string>>(pathFile);

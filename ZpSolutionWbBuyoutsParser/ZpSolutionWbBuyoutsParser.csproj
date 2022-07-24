@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountsWorkQueue.cs" />
+    <Compile Include="CustomExceptions\EmptyQueueException.cs" />
     <Compile Include="Models\Bson\WB\PlanningModel.cs" />
     <Compile Include="Models\Bson\WB\ProductModel.cs" />
     <Compile Include="Models\Http\RequestContentModel.cs" />
@@ -101,9 +102,9 @@
     <Compile Include="Mongo\DatabaseFactoryStorage\WbBuyoutsDatabaseConnector.cs" />
     <Compile Include="Mongo\MongoConnector.cs" />
     <Compile Include="Mongo\MongoSettings.cs" />
-    <Compile Include="Mongo\WbAccountsCollection.cs" />
-    <Compile Include="Mongo\WbPlanningCollection.cs" />
-    <Compile Include="Mongo\WbProductsCollection.cs" />
+    <Compile Include="Mongo\CollectionStorage\WbAccountsCollection.cs" />
+    <Compile Include="Mongo\CollectionStorage\WbPlanningCollection.cs" />
+    <Compile Include="Mongo\CollectionStorage\WbProductsCollection.cs" />
     <Compile Include="OrdersManager\ActiveOrdersManager.cs" />
     <Compile Include="OrdersManager\ArchiveOrdersManager.cs" />
     <Compile Include="OrdersManager\IOrdersManager.cs" />
@@ -123,8 +124,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="ProjectConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ZennoPoster\ZennoCookieContainer.cs" />
-    <Compile Include="ZennoPoster\ZennoPosterProfile.cs" />
+    <Compile Include="ZennoPosterProjectObjects\ZennoCookieContainer.cs" />
+    <Compile Include="ZennoPosterProjectObjects\ZennoPosterAplicationHandler.cs" />
+    <Compile Include="ZennoPosterProjectObjects\ZennoPosterProfile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="ValidateZennoPosterDllPath" BeforeTargets="BeforeBuild">

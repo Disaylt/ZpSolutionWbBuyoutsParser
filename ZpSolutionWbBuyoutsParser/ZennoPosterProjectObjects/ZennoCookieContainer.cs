@@ -6,12 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using ZennoLab.InterfacesLibrary.ProjectModel;
 
-namespace ZpSolutionWbBuyoutsParser.ZennoPoster
+namespace ZpSolutionWbBuyoutsParser.ZennoPosterProjectObjects
 {
     internal class ZennoCookieContainer : CookieContainer
     {
         private readonly CookieCollection _cookieCollection;
-        public ZennoCookieContainer(ICookieContainer cookieContainer) : base(200)
+        public ZennoCookieContainer(ICookieContainer cookieContainer) : base(200, 50, 4096)
         {
             _cookieCollection = ConvertToCookieCollection(cookieContainer);
             Add(_cookieCollection);

@@ -8,7 +8,7 @@ using MongoDB.Bson;
 using ZpSolutionWbBuyoutsParser.Models.Bson.WB;
 using ZpSolutionWbBuyoutsParser.Mongo.DatabaseFactoryStorage;
 
-namespace ZpSolutionWbBuyoutsParser.Mongo
+namespace ZpSolutionWbBuyoutsParser.Mongo.CollectionStorage
 {
     internal class WbProductsCollection
     {

@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using ZpSolutionWbBuyoutsParser.Models.Bson.WB;
 using ZpSolutionWbBuyoutsParser.Models.Json;
 using ZpSolutionWbBuyoutsParser.Mongo;
+using ZpSolutionWbBuyoutsParser.Mongo.CollectionStorage;
 using ZpSolutionWbBuyoutsParser.Parser;
 using ZpSolutionWbBuyoutsParser.WbStorage;
-using ZpSolutionWbBuyoutsParser.ZennoPoster;
+using ZpSolutionWbBuyoutsParser.ZennoPosterProjectObjects;
+using MongoDB.Bson;
 
 namespace ZpSolutionWbBuyoutsParser.OrdersManager
 {
@@ -37,7 +39,7 @@ namespace ZpSolutionWbBuyoutsParser.OrdersManager
                 {
                     dbProduct.Status = _orderActiveStatusConverter.GetDbFormatStatus(currentOrder.IsReadyToReceiveToday);
                     dbProduct.Code = orders.PrivateCode;
-                    dbProduct.ReciveDate = currentOrder.ExpireDate;
+                    dbProduct.ReciveDate = currentOrder.ReceiveDate;
                     _productCollection.Replace(dbProduct);
                 }
                 else
@@ -69,7 +71,7 @@ namespace ZpSolutionWbBuyoutsParser.OrdersManager
                 Address = address,
                 IsActive = true,
                 Brand = activeOrder.Brand,
-                BuyoutsDate = activeOrder.OrderDate,
+                BuyoutsDate = BsonNull.Value,
                 CancelDate = null,
                 Code = ordersStore.PrivateCode,
                 LastCheck = DateTime.Now.AddHours(3),
@@ -78,7 +80,7 @@ namespace ZpSolutionWbBuyoutsParser.OrdersManager
                 Title = activeOrder.Title,
                 Price = activeOrder.Price,
                 ProductId = activeOrder.ProductId,
-                ReciveDate = activeOrder.ExpireDate,
+                ReciveDate = activeOrder.ReceiveDate,
                 ReviewDate = null,
                 ReviewExists = false,
                 RID = activeOrder.RId,

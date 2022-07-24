@@ -9,8 +9,9 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using ZpSolutionWbBuyoutsParser.WbStorage;
 using ZpSolutionWbBuyoutsParser.Models.Bson.WB;
-using ZpSolutionWbBuyoutsParser.ZennoPoster;
+using ZpSolutionWbBuyoutsParser.ZennoPosterProjectObjects;
 using ZpSolutionWbBuyoutsParser.Models.Json;
+using ZpSolutionWbBuyoutsParser.Mongo.CollectionStorage;
 
 namespace ZpSolutionWbBuyoutsParser.OrdersManager
 {
@@ -43,6 +44,7 @@ namespace ZpSolutionWbBuyoutsParser.OrdersManager
                     if(product.Status != currentStatus)
                     {
                         product.Status = currentStatus;
+                        product.BuyoutsDate = archiveProduct.LastDate.AddHours(3);
                         _productCollection.Replace(product);
                     }
                     else
@@ -74,7 +76,7 @@ namespace ZpSolutionWbBuyoutsParser.OrdersManager
                 Address = null,
                 IsActive = true,
                 Brand = archiveProduct.Brand,
-                BuyoutsDate = archiveProduct.OrderDate,
+                BuyoutsDate = archiveProduct.LastDate.AddHours(3),
                 CancelDate = null,
                 Code = string.Empty,
                 LastCheck = DateTime.Now.AddHours(3),
