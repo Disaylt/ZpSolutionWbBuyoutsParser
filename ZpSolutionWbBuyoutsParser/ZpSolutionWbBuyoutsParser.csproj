@@ -94,6 +94,7 @@
     <Compile Include="Models\Json\ArchiveProductModel.cs" />
     <Compile Include="Models\Json\DeliveryPointInfoModel.cs" />
     <Compile Include="Models\Json\MongoSettingsModel.cs" />
+    <Compile Include="Models\Standard\SessionFromQueueModel.cs" />
     <Compile Include="Mongo\DatabaseFactoryStorage\DatabaseFactory.cs" />
     <Compile Include="Mongo\DatabaseFactoryStorage\DatabaseConnector.cs" />
     <Compile Include="Mongo\DatabaseFactoryStorage\TestDatabaseFactory.cs" />
