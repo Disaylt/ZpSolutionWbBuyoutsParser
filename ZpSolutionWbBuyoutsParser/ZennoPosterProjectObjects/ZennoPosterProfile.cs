@@ -29,7 +29,7 @@ namespace ZpSolutionWbBuyoutsParser.ZennoPosterProjectObjects
             if(!IsLoad)
             {
                 Session = sessionName;
-                Profile.Load($"{_pathToZpProfiles}{sessionName.Name}123.zpprofile");
+                Profile.Load($"{_pathToZpProfiles}{sessionName.Name}.zpprofile");
                 IsLoad = true;
             }
             else
@@ -40,7 +40,7 @@ namespace ZpSolutionWbBuyoutsParser.ZennoPosterProjectObjects
 
         public void Save()
         {
-            Profile.Save($"{_pathToZpProfiles}{Session.Name}123.zpprofile", 
+            Profile.Save($"{_pathToZpProfiles}{Session.Name}.zpprofile", 
                 saveLocalStorage: true, 
                 saveWebRtc: true, 
                 saveIndexedDb: true, 

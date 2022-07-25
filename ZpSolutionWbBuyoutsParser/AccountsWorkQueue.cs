@@ -98,7 +98,7 @@ namespace ZpSolutionWbBuyoutsParser
             }
         }
 
-        public void AddSession(SessionForQueueModel session)
+        public void AddSessionPlusAttempt(SessionForQueueModel session)
         {
             lock(_lock)
             {

@@ -66,7 +66,7 @@ namespace ZpSolutionWbBuyoutsParser
             }
             catch
             {
-                _accountsWorkQueue.AddSession(zpProfile.Session);
+                _accountsWorkQueue.AddSessionPlusAttempt(zpProfile.Session);
             }
         }
 
