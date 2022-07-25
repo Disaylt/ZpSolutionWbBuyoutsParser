@@ -29,18 +29,18 @@ namespace ZpSolutionWbBuyoutsParser.ZennoPosterProjectObjects
             if(!IsLoad)
             {
                 Session = sessionName;
-                Profile.Load($"{_pathToZpProfiles}{sessionName}.zpprofile");
+                Profile.Load($"{_pathToZpProfiles}{sessionName.Name}123.zpprofile");
                 IsLoad = true;
             }
             else
             {
-                throw new Exception("Ыession already loaded");
+                throw new Exception("Session already loaded");
             }
         }
 
         public void Save()
         {
-            Profile.Save($"{_pathToZpProfiles}{Session}.zpprofile", 
+            Profile.Save($"{_pathToZpProfiles}{Session.Name}123.zpprofile", 
                 saveLocalStorage: true, 
                 saveWebRtc: true, 
                 saveIndexedDb: true, 

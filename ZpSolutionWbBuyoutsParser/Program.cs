@@ -40,10 +40,10 @@ namespace ZpSolutionWbBuyoutsParser
         /// <returns>Код выполнения скрипта</returns>
         public int Execute(Instance instance, IZennoPosterProjectModel project)
         {
+            ProjectConfig.Initialize(project);
             _project = project;
             _accountsWorkQueue = AccountsWorkQueue.GetIstance();
 
-            ProjectConfig.Initialize(project);
             StartProject();
             ZennoPosterProfile zpProfile = LoadProfile();
             if(zpProfile.IsLoad)
