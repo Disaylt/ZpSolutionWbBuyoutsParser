@@ -14,6 +14,7 @@ using ZennoLab.InterfacesLibrary.ProjectModel.Collections;
 using ZennoLab.InterfacesLibrary.ProjectModel.Enums;
 using ZpSolutionWbBuyoutsParser.CustomExceptions;
 using ZpSolutionWbBuyoutsParser.Models.Json;
+using ZpSolutionWbBuyoutsParser.Models.Standard;
 using ZpSolutionWbBuyoutsParser.OrdersManager;
 using ZpSolutionWbBuyoutsParser.Parser;
 using ZpSolutionWbBuyoutsParser.Proxy;
@@ -65,7 +66,7 @@ namespace ZpSolutionWbBuyoutsParser
             }
             catch
             {
-                _accountsWorkQueue.AddSession(zpProfile.SessionName);
+                _accountsWorkQueue.AddSession(zpProfile.Session);
             }
         }
 
@@ -88,7 +89,7 @@ namespace ZpSolutionWbBuyoutsParser
             ZennoPosterProfile zennoPosterProfile = new ZennoPosterProfile(_project.Profile);
             try
             {
-                string sessionName = _accountsWorkQueue.TakeSession();
+                SessionForQueueModel sessionName = _accountsWorkQueue.TakeSession();
                 zennoPosterProfile.Load(sessionName);
                 return zennoPosterProfile;
             }

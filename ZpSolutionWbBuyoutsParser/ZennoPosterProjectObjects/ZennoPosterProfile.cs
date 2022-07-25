@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZennoLab.InterfacesLibrary.ProjectModel.Collections;
+using ZpSolutionWbBuyoutsParser.Models.Standard;
 
 namespace ZpSolutionWbBuyoutsParser.ZennoPosterProjectObjects
 {
     internal class ZennoPosterProfile
     {
-        public string SessionName { get; private set; } = string.Empty;
+        public SessionForQueueModel Session { get; private set; }
         public IProfile Profile { get; private set; }
         public bool IsLoad { get; private set; }
 
@@ -23,11 +24,11 @@ namespace ZpSolutionWbBuyoutsParser.ZennoPosterProjectObjects
             _pathToZpProfiles = workSettings.GetSettings().PathToZpProfiles;
         }
 
-        public void Load(string sessionName)
+        public void Load(SessionForQueueModel sessionName)
         {
             if(!IsLoad)
             {
-                SessionName = sessionName;
+                Session = sessionName;
                 Profile.Load($"{_pathToZpProfiles}{sessionName}.zpprofile");
                 IsLoad = true;
             }
@@ -39,7 +40,7 @@ namespace ZpSolutionWbBuyoutsParser.ZennoPosterProjectObjects
 
         public void Save()
         {
-            Profile.Save($"{_pathToZpProfiles}{SessionName}.zpprofile", 
+            Profile.Save($"{_pathToZpProfiles}{Session}.zpprofile", 
                 saveLocalStorage: true, 
                 saveWebRtc: true, 
                 saveIndexedDb: true, 

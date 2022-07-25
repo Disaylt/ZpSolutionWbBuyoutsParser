@@ -84,7 +84,7 @@ namespace ZpSolutionWbBuyoutsParser.OrdersManager
                 ReviewDate = null,
                 ReviewExists = false,
                 RID = activeOrder.RId,
-                Session = _zennoPosterProfile.SessionName,
+                Session = _zennoPosterProfile.Session.Name,
                 Status = currentStatus
             };
             return productModel;

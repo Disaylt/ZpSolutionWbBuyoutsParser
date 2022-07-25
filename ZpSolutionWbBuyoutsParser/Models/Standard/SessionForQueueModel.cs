@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZpSolutionWbBuyoutsParser.Models.Standard
 {
-    internal class SessionFromQueueModel
+    internal class SessionForQueueModel
     {
         public string Name { get; set; }
         public int CurrentAttempt { get; set; }
