@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZpSolutionWbBuyoutsParser.CustomExceptions;
 using ZpSolutionWbBuyoutsParser.Models.Json;
+using ZpSolutionWbBuyoutsParser.Models.Standard;
 using ZpSolutionWbBuyoutsParser.Mongo;
 using ZpSolutionWbBuyoutsParser.Mongo.CollectionStorage;
 
@@ -13,8 +14,11 @@ namespace ZpSolutionWbBuyoutsParser
 {
     internal class AccountsWorkQueue
     {
-        private List<string> _sessions;
+        private List<SessionForQueueModel> _sessions;
+
         private const string _fileNameSessionList = "sessions.json";
+
+        private readonly int _maxAttempt = 3;
         private readonly WorkSettings _workSettings;
         private readonly ProjectConfig _projectConfig;
         private readonly ProjectSettingsModel _projectSettings;
@@ -28,6 +32,11 @@ namespace ZpSolutionWbBuyoutsParser
             _workSettings = new WorkSettings();
             _projectSettings = _workSettings.GetSettings();
             _sessions = LoadFromJsonFile();
+        }
+
+        private AccountsWorkQueue(int maxAttempt) : this()
+        {
+            _maxAttempt = maxAttempt;
         }
 
         public int Count
@@ -45,16 +54,22 @@ namespace ZpSolutionWbBuyoutsParser
             }
         }
 
-        public static AccountsWorkQueue Instance
+        public static AccountsWorkQueue GetIstance()
         {
-            get
+            if (_instance == null)
             {
-                if (_instance == null)
-                {
-                    _instance = new AccountsWorkQueue();
-                }
-                return _instance;
+                _instance = new AccountsWorkQueue();
             }
+            return _instance;
+        }
+
+        public static AccountsWorkQueue GetIstance(int maxAttempt)
+        {
+            if (_instance == null)
+            {
+                _instance = new AccountsWorkQueue(maxAttempt);
+            }
+            return _instance;
         }
 
         public bool IsFirstStart()
@@ -83,49 +98,86 @@ namespace ZpSolutionWbBuyoutsParser
             }
         }
 
-        public string TakeSession()
+        public void AddSessionPlusAttempt(SessionForQueueModel session)
         {
             lock(_lock)
             {
-                if(_sessions.Count != 0)
-                {
-                    string session = _sessions.First();
-                    _sessions.Remove(session);
-                    JsonFile.Save($"{_projectConfig.ProjectPath}{_fileNameSessionList}", _sessions);
-                    return session;
-                }
-                else
-                {
-                    throw new EmptyQueueException("Queue sessions is empty");
-                }
+                session.CurrentAttempt += 1;
+                _sessions.Add(session);
+                JsonFile.Save($"{_projectConfig.ProjectPath}{_fileNameSessionList}", _sessions);
             }
         }
 
-        private List<string> CreateQueueSessions()
+        public SessionForQueueModel TakeSession()
+        {
+            lock(_lock)
+            {
+                SessionForQueueModel session = TakeSessionWithRemoveMaxAttempts();
+                JsonFile.Save($"{_projectConfig.ProjectPath}{_fileNameSessionList}", _sessions);
+                return session;
+            }
+        }
+
+        private SessionForQueueModel TakeSessionWithRemoveMaxAttempts()
+        {
+            if(_sessions.Count != 0)
+            {
+                SessionForQueueModel session = _sessions.First();
+                _sessions.Remove(session);
+                if (session.CurrentAttempt >= _maxAttempt)
+                {
+                    SessionForQueueModel newSession = TakeSessionWithRemoveMaxAttempts();
+                    return newSession;
+                }
+                else
+                {
+                    return session;
+                }
+            }
+            else
+            {
+                JsonFile.Save($"{_projectConfig.ProjectPath}{_fileNameSessionList}", _sessions);
+                throw new EmptyQueueException("Queue sessions is empty");
+            }
+        }
+
+        private List<SessionForQueueModel> CreateQueueSessions()
         {
             if(_projectSettings.IsParseAllAccounts)
             {
                 WbAccountsCollection accountsCollection = new WbAccountsCollection();
-                return accountsCollection.GetWorkingAccounts();
+                IEnumerable<string> sessions = accountsCollection.GetWorkingAccounts();
+                List<SessionForQueueModel> sessionFromQueue = AddToFirstAttemptSessions(sessions);
+                return sessionFromQueue;
             }
             else
             {
                 WbPlanningCollection wbPlanningCollection = new WbPlanningCollection();
-                return wbPlanningCollection.GetUniqueAccountsForLastDays(_projectSettings.NumberDaysForGettingSessions);
+                IEnumerable<string> sessions = wbPlanningCollection.GetUniqueAccountsForLastDays(_projectSettings.NumberDaysForGettingSessions);
+                List<SessionForQueueModel> sessionFromQueue = AddToFirstAttemptSessions(sessions);
+                return sessionFromQueue;
             }
         }
 
-        private List<string> LoadFromJsonFile()
+        private List<SessionForQueueModel> AddToFirstAttemptSessions(IEnumerable<string> sessions)
+        {
+            List<SessionForQueueModel> sessionFromQueues = sessions
+                .Select(x=> new SessionForQueueModel { Name = x, CurrentAttempt = 0})
+                .ToList();
+            return sessionFromQueues;
+        }
+
+        private List<SessionForQueueModel> LoadFromJsonFile()
         {
             string pathFile = $"{_projectConfig.ProjectPath}{_fileNameSessionList}";
             if (File.Exists(pathFile))
             {
-                List<string> sessions = JsonFile.Load<List<string>>(pathFile);
+                List<SessionForQueueModel> sessions = JsonFile.Load<List<SessionForQueueModel>>(pathFile);
                 return sessions;
             }
             else
             {
-                return new List<string>();
+                return new List<SessionForQueueModel>();
             }
         }
 

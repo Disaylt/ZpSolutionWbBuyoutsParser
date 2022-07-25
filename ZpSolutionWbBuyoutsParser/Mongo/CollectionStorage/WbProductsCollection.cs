@@ -19,7 +19,7 @@ namespace ZpSolutionWbBuyoutsParser.Mongo.CollectionStorage
         {
             if(_mongoCollection == null )
             {
-                DatabaseFactory databaseFactory = new TestDatabaseFactory();
+                WbBuyoutsDatabaseFactory databaseFactory = new WbBuyoutsDatabaseFactory();
                 var dbConnector = databaseFactory.GetDbConnector();
                 _mongoCollection = dbConnector.Database.GetCollection<ProductModel>(_name);
             }
