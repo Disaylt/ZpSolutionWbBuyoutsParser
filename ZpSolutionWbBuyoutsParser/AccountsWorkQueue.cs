@@ -111,17 +111,31 @@ namespace ZpSolutionWbBuyoutsParser
         {
             lock(_lock)
             {
-                if(_sessions.Count != 0)
+                SessionForQueueModel session = TakeSessionWithRemoveMaxAttempts();
+                JsonFile.Save($"{_projectConfig.ProjectPath}{_fileNameSessionList}", _sessions);
+                return session;
+            }
+        }
+
+        private SessionForQueueModel TakeSessionWithRemoveMaxAttempts()
+        {
+            if(_sessions.Count != 0)
+            {
+                SessionForQueueModel session = _sessions.First();
+                if(session.CurrentAttempt > _maxAttempt)
                 {
-                    SessionForQueueModel session = _sessions.First();
                     _sessions.Remove(session);
-                    JsonFile.Save($"{_projectConfig.ProjectPath}{_fileNameSessionList}", _sessions);
-                    return session;
+                    SessionForQueueModel newSession = TakeSessionWithRemoveMaxAttempts();
+                    return newSession;
                 }
                 else
                 {
-                    throw new EmptyQueueException("Queue sessions is empty");
+                    return session;
                 }
+            }
+            else
+            {
+                throw new EmptyQueueException("Queue sessions is empty");
             }
         }
 
