@@ -83,6 +83,15 @@ namespace ZpSolutionWbBuyoutsParser
             }
         }
 
+        public void AddSession(string session)
+        {
+            lock(_lock)
+            {
+                _sessions.Add(session);
+                JsonFile.Save($"{_projectConfig.ProjectPath}{_fileNameSessionList}", _sessions);
+            }
+        }
+
         public string TakeSession()
         {
             lock(_lock)

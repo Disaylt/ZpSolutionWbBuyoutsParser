@@ -53,11 +53,18 @@ namespace ZpSolutionWbBuyoutsParser
 
         private void StartParsingOrders(ZennoPosterProfile zpProfile)
         {
-            using (RussianProxyStream proxyStream = new RussianProxyStream())
+            try
             {
-                WbAccountOrdersParser ordersParser = new WbAccountOrdersParser(proxyStream.GetProxy(), zpProfile.Profile);
-                ActivateArchiveOrdersManager(ordersParser, zpProfile);
-                ActivateActiveOrdersManager(ordersParser, zpProfile);
+                using (RussianProxyStream proxyStream = new RussianProxyStream())
+                {
+                    WbAccountOrdersParser ordersParser = new WbAccountOrdersParser(proxyStream.GetProxy(), zpProfile.Profile);
+                    ActivateArchiveOrdersManager(ordersParser, zpProfile);
+                    ActivateActiveOrdersManager(ordersParser, zpProfile);
+                }
+            }
+            catch
+            {
+                
             }
         }
 
