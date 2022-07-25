@@ -14,7 +14,10 @@ namespace ZpSolutionWbBuyoutsParser
     internal class AccountsWorkQueue
     {
         private List<string> _sessions;
+
         private const string _fileNameSessionList = "sessions.json";
+
+        private readonly int _maxAttempt = 3;
         private readonly WorkSettings _workSettings;
         private readonly ProjectConfig _projectConfig;
         private readonly ProjectSettingsModel _projectSettings;
@@ -28,6 +31,11 @@ namespace ZpSolutionWbBuyoutsParser
             _workSettings = new WorkSettings();
             _projectSettings = _workSettings.GetSettings();
             _sessions = LoadFromJsonFile();
+        }
+
+        private AccountsWorkQueue(int maxAttempt) : this()
+        {
+            _maxAttempt = maxAttempt;
         }
 
         public int Count
@@ -45,16 +53,22 @@ namespace ZpSolutionWbBuyoutsParser
             }
         }
 
-        public static AccountsWorkQueue Instance
+        public static AccountsWorkQueue GetIstance()
         {
-            get
+            if (_instance == null)
             {
-                if (_instance == null)
-                {
-                    _instance = new AccountsWorkQueue();
-                }
-                return _instance;
+                _instance = new AccountsWorkQueue();
             }
+            return _instance;
+        }
+
+        public static AccountsWorkQueue GetIstance(int maxAttempt)
+        {
+            if (_instance == null)
+            {
+                _instance = new AccountsWorkQueue(maxAttempt);
+            }
+            return _instance;
         }
 
         public bool IsFirstStart()
