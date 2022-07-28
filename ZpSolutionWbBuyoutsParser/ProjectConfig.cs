@@ -32,13 +32,16 @@ namespace ZpSolutionWbBuyoutsParser
 
         public static ProjectConfig GetInstance()
         {
-            if(_projectConfig != null)
+            lock(_lock)
             {
-                return _projectConfig;
-            }
-            else
-            {
-                throw new NullReferenceException("ProjectConfig is not loaded");
+                if (_projectConfig != null)
+                {
+                    return _projectConfig;
+                }
+                else
+                {
+                    throw new NullReferenceException("ProjectConfig is not loaded");
+                }
             }
         }
     }
