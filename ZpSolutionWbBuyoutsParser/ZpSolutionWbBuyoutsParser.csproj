@@ -94,6 +94,7 @@
     <Compile Include="Models\Json\ArchiveProductModel.cs" />
     <Compile Include="Models\Json\DeliveryPointInfoModel.cs" />
     <Compile Include="Models\Json\MongoSettingsModel.cs" />
+    <Compile Include="Models\Standard\RidTypesValueModel.cs" />
     <Compile Include="Models\Standard\SessionForQueueModel.cs" />
     <Compile Include="Mongo\DatabaseFactoryStorage\DatabaseFactory.cs" />
     <Compile Include="Mongo\DatabaseFactoryStorage\DatabaseConnector.cs" />
@@ -119,6 +120,8 @@
     <Compile Include="WbStorage\IOrderActiveStatusConverter.cs" />
     <Compile Include="WbStorage\IOrderArchiveStatusConverter.cs" />
     <Compile Include="WbStorage\ArchiveOrderStatusConverterV1.cs" />
+    <Compile Include="WbStorage\IRidConverter.cs" />
+    <Compile Include="WbStorage\StrOrIntRidConverter.cs" />
     <Compile Include="WorkSettings.cs" />
     <Compile Include="JsonFile.cs" />
     <Compile Include="Models\Json\ProjectSettingsModel.cs" />
