@@ -9,6 +9,6 @@ namespace ZpSolutionWbBuyoutsParser.WbStorage
 {
     internal interface IRidConverter<out T>
     {
-        T ConvertToDifferentTypes();
+        T ConvertToDifferentTypes(string rid);
     }
 }

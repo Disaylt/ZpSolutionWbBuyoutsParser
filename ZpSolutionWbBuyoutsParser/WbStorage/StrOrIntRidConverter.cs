@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +10,20 @@ namespace ZpSolutionWbBuyoutsParser.WbStorage
 {
     internal class StrOrIntRidConverter : IRidConverter<RidTypesValueModel>
     {
-        public RidTypesValueModel ConvertToDifferentTypes()
+        public RidTypesValueModel ConvertToDifferentTypes(string rid)
         {
-            throw new NotImplementedException(); 
+            RidTypesValueModel ridTypesValueModel = new RidTypesValueModel();
+            if(long.TryParse(rid, out long value))
+            {
+                ridTypesValueModel.Rid = value;
+                ridTypesValueModel.SRid = BsonNull.Value;
+            }
+            else
+            {
+                ridTypesValueModel.Rid = BsonNull.Value;
+                ridTypesValueModel.SRid = rid;
+            }
+            return ridTypesValueModel;
         }
     }
 }
