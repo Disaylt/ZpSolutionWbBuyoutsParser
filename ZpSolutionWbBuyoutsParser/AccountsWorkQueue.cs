@@ -29,7 +29,7 @@ namespace ZpSolutionWbBuyoutsParser
         private AccountsWorkQueue()
         {
             _projectConfig = ProjectConfig.GetInstance();
-            _workSettings = new WorkSettings();
+            _workSettings = WorkSettings.Instance;
             _projectSettings = _workSettings.GetSettings();
             _sessions = LoadFromJsonFile();
         }
