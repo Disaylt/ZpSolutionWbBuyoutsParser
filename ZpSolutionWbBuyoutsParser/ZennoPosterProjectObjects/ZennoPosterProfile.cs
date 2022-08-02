@@ -20,7 +20,7 @@ namespace ZpSolutionWbBuyoutsParser.ZennoPosterProjectObjects
         {
             Profile = profile;
             IsLoad = false;
-            WorkSettings workSettings = new WorkSettings();
+            WorkSettings workSettings = WorkSettings.Instance;
             _pathToZpProfiles = workSettings.GetSettings().PathToZpProfiles;
         }
 

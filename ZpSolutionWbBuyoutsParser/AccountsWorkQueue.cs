@@ -22,14 +22,14 @@ namespace ZpSolutionWbBuyoutsParser
         private readonly WorkSettings _workSettings;
         private readonly ProjectConfig _projectConfig;
         private readonly ProjectSettingsModel _projectSettings;
-        private readonly object  _lock = new object();
 
+        private static object  _lock = new object();
         private static AccountsWorkQueue _instance;
 
         private AccountsWorkQueue()
         {
             _projectConfig = ProjectConfig.GetInstance();
-            _workSettings = new WorkSettings();
+            _workSettings = WorkSettings.Instance;
             _projectSettings = _workSettings.GetSettings();
             _sessions = LoadFromJsonFile();
         }
@@ -56,11 +56,14 @@ namespace ZpSolutionWbBuyoutsParser
 
         public static AccountsWorkQueue GetIstance()
         {
-            if (_instance == null)
+            lock(_lock)
             {
-                _instance = new AccountsWorkQueue();
+                if (_instance == null)
+                {
+                    _instance = new AccountsWorkQueue();
+                }
+                return _instance;
             }
-            return _instance;
         }
 
         public static AccountsWorkQueue GetIstance(int maxAttempt)
@@ -169,15 +172,18 @@ namespace ZpSolutionWbBuyoutsParser
 
         private List<SessionForQueueModel> LoadFromJsonFile()
         {
-            string pathFile = $"{_projectConfig.ProjectPath}{_fileNameSessionList}";
-            if (File.Exists(pathFile))
+            lock(_lock)
             {
-                List<SessionForQueueModel> sessions = JsonFile.Load<List<SessionForQueueModel>>(pathFile);
-                return sessions;
-            }
-            else
-            {
-                return new List<SessionForQueueModel>();
+                string pathFile = $"{_projectConfig.ProjectPath}{_fileNameSessionList}";
+                if (File.Exists(pathFile))
+                {
+                    List<SessionForQueueModel> sessions = JsonFile.Load<List<SessionForQueueModel>>(pathFile);
+                    return sessions;
+                }
+                else
+                {
+                    return new List<SessionForQueueModel>();
+                }
             }
         }
 
