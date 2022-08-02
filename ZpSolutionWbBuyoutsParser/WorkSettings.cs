@@ -10,7 +10,6 @@ namespace ZpSolutionWbBuyoutsParser
 {
     internal class WorkSettings
     {
-        private ProjectSettingsModel _projectSettings;
         private ProjectConfig _projectConfig;
         private static readonly object _lock = new object();
         private static WorkSettings _instance;
@@ -39,11 +38,8 @@ namespace ZpSolutionWbBuyoutsParser
         {
             lock (_lock)
             {
-                if (_projectSettings == null)
-                {
-                    _projectSettings = JsonFile.Load<ProjectSettingsModel>($@"{_projectConfig.ProjectPath}{_fileName}");
-                }
-                return _projectSettings;
+                var projectSettings = JsonFile.Load<ProjectSettingsModel>($@"{_projectConfig.ProjectPath}{_fileName}");
+                return projectSettings;
             }
         }
 
@@ -52,7 +48,6 @@ namespace ZpSolutionWbBuyoutsParser
             lock( _lock)
             {
                 JsonFile.Save($@"{_projectConfig.ProjectPath}{_fileName}", projectSettings);
-                _projectSettings = projectSettings;
             }
         }
     }
